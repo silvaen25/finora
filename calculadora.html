@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora - Finora</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .calc-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+    input[type="text"] {
+      font-size: 24px;
+      padding: 10px;
+      width: 90%;
+      margin-bottom: 10px;
+    }
+    .botoes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      width: 90%;
+    }
+    button {
+      padding: 15px;
+      font-size: 18px;
+      background-color: #d5ffe4;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <aside class="menu">
+    <h1>$ finora</h1>
+    <ul>
+      <li><a href="home.html">?? Início</a></li>
+      <li><a href="dicas.html">?? Dicas</a></li>
+      <li><a href="aulas.html">?? Aulas</a></li>
+      <li><a href="suporte.html">??? Suporte</a></li>
+      <li><a href="calculadora.html">?? Calculadora</a></li>
+      <li><a href="saldo.html">?? Saldo</a></li>
+      <li><a href="historico.html">?? Histórico</a></li>
+      <li><a href="index.html">?? Sair</a></li>
+    </ul>
+  </aside>
+
+  <main class="conteudo">
+    <h2>Calculadora</h2>
+    <div class="calc-container">
+      <input type="text" id="display" readonly />
+      <div class="botoes">
+        <button onclick="addToDisplay('7')">7</button>
+        <button onclick="addToDisplay('8')">8</button>
+        <button onclick="addToDisplay('9')">9</button>
+        <button onclick="addToDisplay('/')">/</button>
+        <button onclick="addToDisplay('4')">4</button>
+        <button onclick="addToDisplay('5')">5</button>
+        <button onclick="addToDisplay('6')">6</button>
+        <button onclick="addToDisplay('*')">*</button>
+        <button onclick="addToDisplay('1')">1</button>
+        <button onclick="addToDisplay('2')">2</button>
+        <button onclick="addToDisplay('3')">3</button>
+        <button onclick="addToDisplay('-')">-</button>
+        <button onclick="addToDisplay('0')">0</button>
+        <button onclick="addToDisplay('.')">.</button>
+        <button onclick="calcular()">=</button>
+        <button onclick="addToDisplay('+')">+</button>
+        <button onclick="limpar()" style="grid-column: span 4; background-color: #ffb3b3;">C</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function addToDisplay(value) {
+      document.getElementById('display').value += value;
+    }
+    function limpar() {
+      document.getElementById('display').value = '';
+    }
+    function calcular() {
+      try {
+        const resultado = eval(document.getElementById('display').value);
+        document.getElementById('display').value = resultado;
+      } catch {
+        document.getElementById('display').value = 'Erro';
+      }
+    }
+  </script>
+</body>
+</html>
