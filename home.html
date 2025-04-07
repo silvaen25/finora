@@ -2,27 +2,32 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finora - In�cio</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finora - Início</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('https://cdn-icons-png.flaticon.com/512/1130/1130083.png') no-repeat center center fixed;
-      background-size: 30%;
-      background-color: #ffffff;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('https://cdn-icons-png.flaticon.com/512/1130/1130083.png') no-repeat center center fixed;
+  background-size: 300px;
+  background-color: #ffffff;
+
     }
 
     .menu {
       position: fixed;
-      top: 0;
       left: 0;
+      top: 0;
       width: 200px;
       height: 100%;
       background-color: #1e1e1e;
       padding: 20px;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     }
 
     .menu h2 {
@@ -32,11 +37,10 @@
 
     .menu ul {
       list-style: none;
-      padding: 0;
     }
 
     .menu li {
-      margin: 10px 0;
+      margin-bottom: 15px;
     }
 
     .menu a {
@@ -51,7 +55,15 @@
 
     .content {
       margin-left: 220px;
-      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .content img {
+      max-width: 300px;
+      opacity: 0.9;
     }
   </style>
 </head>
@@ -59,19 +71,19 @@
   <div class="menu">
     <h2>$ finora</h2>
     <ul>
-      <li><a href="home.html">?? In�cio</a></li>
-      <li><a href="dicas.html">?? Dicas</a></li>
-      <li><a href="aulas.html">?? Aulas</a></li>
-      <li><a href="suporte.html">?? Suporte</a></li>
-      <li><a href="calculadora.html">?? Calculadora</a></li>
-      <li><a href="saldo.html">?? Saldo</a></li>
-      <li><a href="historico.html">?? Hist�rico</a></li>
-      <li><a href="index.html">?? Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas</a></li>
+      <li><a href="aulas.html">📘 Aulas</a></li>
+      <li><a href="suporte.html">🛟 Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="index.html">🚪 Sair</a></li>
     </ul>
   </div>
 
   <div class="content">
-    <!-- Conte�do principal da home aqui (vazio por enquanto) -->
+    <img src="https://cdn-icons-png.flaticon.com/512/1130/1130083.png" alt="Símbolo financeiro">
   </div>
 </body>
 </html>
