@@ -12,12 +12,8 @@
     }
 
     body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: url('https://cdn-icons-png.flaticon.com/512/1130/1130083.png') no-repeat center center fixed;
-  background-size: 300px;
-  background-color: #ffffff;
-
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
     }
 
     .menu {
@@ -54,21 +50,18 @@
     }
 
     .content {
-      .welcome {
-  text-align: center;
-}
-
-.welcome h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #1e1e1e;
-}
-
       margin-left: 220px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
     }
 
     .content img {
@@ -93,11 +86,15 @@
   </div>
 
   <div class="content">
-  <div class="welcome">
-    <h1>Bem-vindo, João!</h1>
+    <h1 id="bemvindo">Bem-vindo!</h1>
     <img src="https://cdn-icons-png.flaticon.com/512/1130/1130083.png" alt="Símbolo financeiro">
   </div>
-</div>
 
+  <script>
+    const nome = localStorage.getItem("nomeUsuario");
+    if (nome) {
+      document.getElementById("bemvindo").innerText = `Bem-vindo, ${nome}!`;
+    }
+  </script>
 </body>
 </html>
