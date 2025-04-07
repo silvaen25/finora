@@ -1,0 +1,8 @@
+.fundo-cifrao {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/25/25473.png'); /* exemplo de cifrão verde */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+  height: 100vh;
+}
