@@ -66,11 +66,20 @@
       margin: 20px;
       background-color: rgba(0, 0, 0, 0.6);
       border-radius: 10px;
+      position: relative;
     }
 
     .conteudo h2 {
       font-size: 28px;
       margin-bottom: 20px;
+    }
+
+    .relogio {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 18px;
+      color: #00ff88;
     }
 
     .calc-container {
@@ -81,11 +90,15 @@
 
     input[type="text"] {
       font-size: 24px;
-      padding: 10px;
+      padding: 12px;
       width: 90%;
       margin-bottom: 15px;
       border: none;
       border-radius: 10px;
+      box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.3);
+      background-color: #f0fff9;
+      color: #000;
+      text-align: right;
     }
 
     .botoes {
@@ -102,10 +115,12 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
+      transition: transform 0.1s, background-color 0.3s;
     }
 
     button:hover {
       background-color: #b2f0cc;
+      transform: scale(1.05);
     }
 
     .limpar {
@@ -116,6 +131,13 @@
     .btn-salvar {
       margin-top: 20px;
       background-color: #00ffaa;
+      font-weight: bold;
+    }
+
+    .botoes button:nth-child(15) {
+      background-color: #00cc99;
+      color: white;
+      font-weight: bold;
     }
 
     .notificacao {
@@ -150,6 +172,11 @@
       background-color: #00cc99;
       color: white;
     }
+
+    .modo-escuro input[type="text"] {
+      background-color: #333;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -168,6 +195,7 @@
   </aside>
 
   <main class="conteudo">
+    <div class="relogio" id="relogio">--:--:--</div>
     <h2>Calculadora</h2>
     <div class="calc-container">
       <input type="text" id="display" readonly />
@@ -228,7 +256,6 @@
       historico.push(transacao);
       localStorage.setItem("historicoFinora", JSON.stringify(historico));
 
-      // Mostrar notificação
       const noti = document.getElementById("notificacao");
       noti.style.display = "block";
       setTimeout(() => {
@@ -243,7 +270,16 @@
       }
     }
 
+    function atualizarRelogio() {
+      const agora = new Date();
+      const horas = agora.getHours().toString().padStart(2, '0');
+      const minutos = agora.getMinutes().toString().padStart(2, '0');
+      const segundos = agora.getSeconds().toString().padStart(2, '0');
+      document.getElementById('relogio').textContent = `${horas}:${minutos}:${segundos}`;
+    }
+
     aplicarModoEscuroAutomatico();
+    setInterval(atualizarRelogio, 1000);
   </script>
 </body>
 </html>
