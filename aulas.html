@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aulas - Finora</title>
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -10,7 +10,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       display: flex;
-      background-image: url('fundo.jpg'); /* Substitua com o caminho da sua imagem */
+      background-image: url('fundo.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -66,32 +66,43 @@
     .conteudo h2 {
       font-size: 28px;
       margin-bottom: 20px;
+      border-bottom: 2px solid #00ffcc;
+      padding-bottom: 10px;
     }
 
-    .conteudo p {
-      font-size: 18px;
-      margin-bottom: 15px;
+    .topico {
+      margin-bottom: 30px;
     }
 
-    .conteudo ul {
+    .topico h3 {
+      font-size: 22px;
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    .topico ul {
       list-style: none;
       padding-left: 0;
     }
 
-    .conteudo li {
-      margin-bottom: 12px;
+    .topico li {
+      margin-bottom: 10px;
     }
 
-    .conteudo li a {
-      color: #00ffcc;
-      text-decoration: none;
-      font-size: 18px;
-      transition: color 0.3s;
-    }
-
-    .conteudo li a:hover {
+    .topico li a {
       color: #ffffff;
-      text-decoration: underline;
+      text-decoration: none;
+      font-size: 17px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .topico li a:hover {
+      background-color: #00ffcc;
+      color: black;
     }
   </style>
 </head>
@@ -99,26 +110,48 @@
   <aside class="menu">
     <h1>$ finora</h1>
     <ul>
-      <li><a href="home.html">🏠&nbsp; Início</a></li>
-      <li><a href="dicas.html">💡&nbsp; Dicas</a></li>
-      <li><a href="aulas.html">📚&nbsp; Aulas</a></li>
-      <li><a href="suporte.html">🛠️&nbsp; Suporte</a></li>
-      <li><a href="calculadora.html">🧮&nbsp; Calculadora</a></li>
-      <li><a href="saldo.html">💰&nbsp; Saldo</a></li>
-      <li><a href="historico.html">📈&nbsp; Histórico</a></li>
-      <li><a href="index.html">🔓&nbsp; Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas</a></li>
+      <li><a href="aulas.html">📚 Aulas</a></li>
+      <li><a href="suporte.html">🛠️ Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="index.html">🔓 Sair</a></li>
     </ul>
   </aside>
 
   <main class="conteudo">
-    <h2>Aulas de Educação Financeira</h2>
-    <p>Assista a vídeos e aprenda a organizar suas finanças:</p>
-    <ul>
-      <li><a href="https://youtu.be/HSXcvFVtsdM?si=UQVsEyFPGTTLVlcg" target="_blank">📹 Os 3 fatores</a></li>
-      <li><a href="https://youtu.be/Ep65y-eQxgE?si=zO2kSykRmtlfYraN" target="_blank">📹 Equilíbrio Financeiro</a></li>
-      <li><a href="https://youtu.be/AfMGeMZmyUU?si=G501UXbi6ldjAY1x" target="_blank">📹 Organização</a></li>
-      <li><a href="https://youtu.be/CB5zuxQl5ro?si=HUv0ouoD6Oji5zBu" target="_blank">📹 Como usar o dinheiro</a></li>
-    </ul>
+    <h2>📚 Aulas de Educação Financeira</h2>
+
+    <div class="topico">
+      <h3>🧠 Fundamentos</h3>
+      <ul>
+        <li><a href="https://youtu.be/HSXcvFVtsdM?si=UQVsEyFPGTTLVlcg" target="_blank">Os 3 fatores para mudar sua vida financeira</a></li>
+        <li><a href="https://youtu.be/Ep65y-eQxgE?si=zO2kSykRmtlfYraN" target="_blank">Equilíbrio financeiro</a></li>
+        <li><a href="https://youtu.be/AfMGeMZmyUU?si=G501UXbi6ldjAY1x" target="_blank">Como se organizar financeiramente</a></li>
+        <li><a href="https://youtu.be/CB5zuxQl5ro?si=HUv0ouoD6Oji5zBu" target="_blank">Como usar seu dinheiro de forma inteligente</a></li>
+      </ul>
+    </div>
+
+    <div class="topico">
+      <h3>💸 Prática e Controle</h3>
+      <ul>
+        <li><a href="https://youtu.be/B-rqN1XzqWg?si=rJzptvQGJihWspHc" target="_blank">Dicas para controlar gastos do dia a dia</a></li>
+        <li><a href="https://youtu.be/qN57vCN5toQ?si=Vo1eL6q8dkIpYZDj" target="_blank">Como fazer um orçamento pessoal</a></li>
+        <li><a href="https://youtu.be/yNHe1aTeZZs?si=XB1YfMi5weN08M7K" target="_blank">Planilha de gastos ou app de controle?</a></li>
+      </ul>
+    </div>
+
+    <div class="topico">
+      <h3>🚀 Crescimento e Investimentos</h3>
+      <ul>
+        <li><a href="https://youtu.be/RY0R2rDk9YQ?si=vXivPLcvW_sxZf3x" target="_blank">Como começar a investir com pouco</a></li>
+        <li><a href="https://youtu.be/Uj_TPPfDxhg?si=E1-yL7WwZrbFsiKm" target="_blank">Renda fixa ou variável?</a></li>
+        <li><a href="https://youtu.be/V4zScsPpIkg?si=tWBaJGn0ANhtdVLo" target="_blank">Erros comuns de iniciantes em investimentos</a></li>
+      </ul>
+    </div>
+
   </main>
 </body>
 </html>
