@@ -148,23 +148,39 @@
 
   <script>
     function salvarSaldo() {
-      const valor = parseFloat(document.getElementById('saldo').value);
-      if (isNaN(valor)) return;
+  const valor = parseFloat(document.getElementById('saldo').value);
+  if (isNaN(valor)) return;
 
-      localStorage.setItem("saldo", valor);
-      document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
+  // Salvar o saldo no localStorage com a chave correta
+  localStorage.setItem("saldoFinora", valor);
+  document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
 
-      const noti = document.getElementById("notificacao");
-      noti.style.display = "block";
-      setTimeout(() => {
-        noti.style.display = "none";
-      }, 3000);
-    }
+  // Criar transação para o histórico
+  const transacao = {
+    tipo: "Atualização de Saldo",
+    valor: "R$ " + valor.toFixed(2),
+    data: new Date().toLocaleString()
+  };
 
-    window.onload = () => {
-      const saldo = parseFloat(localStorage.getItem("saldo")) || 0;
-      document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
-      aplicarModoEscuroAutomatico();
+  // Salvar no histórico
+  const historico = JSON.parse(localStorage.getItem("historicoFinora")) || [];
+  historico.push(transacao);
+  localStorage.setItem("historicoFinora", JSON.stringify(historico));
+
+  // Mostrar notificação
+  const noti = document.getElementById("notificacao");
+  noti.style.display = "block";
+  setTimeout(() => {
+    noti.style.display = "none";
+  }, 3000);
+}
+
+window.onload = () => {
+  const saldo = parseFloat(localStorage.getItem("saldoFinora")) || 0;
+  document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
+  aplicarModoEscuroAutomatico();
+};
+
     };
 
     function aplicarModoEscuroAutomatico() {
