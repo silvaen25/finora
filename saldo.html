@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saldo - Finora</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
@@ -148,39 +147,36 @@
 
   <script>
     function salvarSaldo() {
-  const valor = parseFloat(document.getElementById('saldo').value);
-  if (isNaN(valor)) return;
+      const valor = parseFloat(document.getElementById('saldo').value);
+      if (isNaN(valor)) return;
 
-  // Salvar o saldo no localStorage com a chave correta
-  localStorage.setItem("saldoFinora", valor);
-  document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
+      // Salvar com a chave CORRETA
+      localStorage.setItem("saldoFinora", valor);
+      document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
 
-  // Criar transação para o histórico
-  const transacao = {
-    tipo: "Atualização de Saldo",
-    valor: "R$ " + valor.toFixed(2),
-    data: new Date().toLocaleString()
-  };
+      // Atualizar o histórico
+      const transacao = {
+        tipo: "Atualização de Saldo",
+        valor: "R$ " + valor.toFixed(2),
+        data: new Date().toLocaleString()
+      };
 
-  // Salvar no histórico
-  const historico = JSON.parse(localStorage.getItem("historicoFinora")) || [];
-  historico.push(transacao);
-  localStorage.setItem("historicoFinora", JSON.stringify(historico));
+      const historico = JSON.parse(localStorage.getItem("historicoFinora")) || [];
+      historico.push(transacao);
+      localStorage.setItem("historicoFinora", JSON.stringify(historico));
 
-  // Mostrar notificação
-  const noti = document.getElementById("notificacao");
-  noti.style.display = "block";
-  setTimeout(() => {
-    noti.style.display = "none";
-  }, 3000);
-}
+      // Mostrar notificação
+      const noti = document.getElementById("notificacao");
+      noti.style.display = "block";
+      setTimeout(() => {
+        noti.style.display = "none";
+      }, 3000);
+    }
 
-window.onload = () => {
-  const saldo = parseFloat(localStorage.getItem("saldoFinora")) || 0;
-  document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
-  aplicarModoEscuroAutomatico();
-};
-
+    window.onload = () => {
+      const saldo = parseFloat(localStorage.getItem("saldoFinora")) || 0;
+      document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
+      aplicarModoEscuroAutomatico();
     };
 
     function aplicarModoEscuroAutomatico() {
@@ -192,47 +188,3 @@ window.onload = () => {
   </script>
 </body>
 </html>
-<!-- ...código anterior (head e estilo continuam iguais)... -->
-
-<script>
-  function salvarSaldo() {
-    const valor = parseFloat(document.getElementById('saldo').value);
-    if (isNaN(valor)) return;
-
-    // Salvar o saldo no localStorage
-    localStorage.setItem("saldo", valor);
-    document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
-
-    // Criar transação para o histórico
-    const transacao = {
-      tipo: "Atualização de Saldo",
-      valor: "R$ " + valor.toFixed(2),
-      data: new Date().toLocaleString()
-    };
-
-    // Salvar no histórico
-    const historico = JSON.parse(localStorage.getItem("historicoFinora")) || [];
-    historico.push(transacao);
-    localStorage.setItem("historicoFinora", JSON.stringify(historico));
-
-    // Mostrar notificação
-    const noti = document.getElementById("notificacao");
-    noti.style.display = "block";
-    setTimeout(() => {
-      noti.style.display = "none";
-    }, 3000);
-  }
-
-  window.onload = () => {
-    const saldo = parseFloat(localStorage.getItem("saldo")) || 0;
-    document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
-    aplicarModoEscuroAutomatico();
-  };
-
-  function aplicarModoEscuroAutomatico() {
-    const hora = new Date().getHours();
-    if (hora >= 18 || hora < 6) {
-      document.body.classList.add("modo-escuro");
-    }
-  }
-</script>
