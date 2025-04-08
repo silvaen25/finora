@@ -5,51 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Finora - Login</title>
   <style>
+    :root {
+      --verde-principal: #00ff88;
+      --verde-escuro: #167c35;
+      --fundo: linear-gradient(145deg, #0e1e1e, #1f2f2f);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body, html {
       height: 100%;
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #f0f4f3;
+      background: var(--fundo);
     }
+
     .login-box {
       background: white;
-      padding: 2rem;
-      border-radius: 10px;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
       text-align: center;
       width: 90%;
-      max-width: 300px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 340px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
     }
-    .login-box input {
+
+    .login-box:hover {
+      transform: scale(1.02);
+    }
+
+    .login-box h2 {
+      margin-bottom: 0.5rem;
+      color: #1e1e1e;
+    }
+
+    .login-box p {
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .input-container {
+      position: relative;
+      margin-top: 1.5rem;
+    }
+
+    .input-container input {
       width: 100%;
-      margin-top: 1rem;
-      padding: 0.6rem;
+      padding: 0.8rem 1rem 0.8rem 2.5rem;
       font-size: 1rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.3s;
     }
+
+    .input-container input:focus {
+      border-color: var(--verde-principal);
+    }
+
+    .input-container::before {
+      content: "👤";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+    }
+
     .login-box button {
-      margin-top: 1rem;
-      padding: 0.6rem 1rem;
-      background-color: #167c35;
-      color: white;
+      margin-top: 1.5rem;
+      padding: 0.8rem;
+      background-color: var(--verde-principal);
+      color: black;
       border: none;
       width: 100%;
       font-size: 1rem;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+
+    .login-box button:hover {
+      background-color: #00e07a;
+      transform: scale(1.03);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
   <div class="login-box">
-    <h2>Bem-vindo ao Finora</h2>
-    <p>Insira seu nome para continuar:</p>
-    <input type="text" id="username" placeholder="Seu nome" />
+    <h2>🌟 Bem-vindo ao Finora</h2>
+    <p>Digite seu nome para começar sua jornada financeira!</p>
+    <div class="input-container">
+      <input type="text" id="username" placeholder="Seu nome" />
+    </div>
     <button onclick="login()">Entrar</button>
+    <div class="footer">💸 Educação Financeira Jovem</div>
   </div>
 
   <script>
