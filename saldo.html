@@ -76,28 +76,27 @@
   </main>
 
   <script>
-    let ultimoSaldo = 0;
+    let saldoAnterior = 0;
+    let saldoAtual = 0;
 
     function salvarSaldo() {
       const input = document.getElementById('saldo');
-      const valor = parseFloat(input.value);
-      if (isNaN(valor)) return;
+      const novoValor = parseFloat(input.value);
 
-      const saldoAnterior = parseFloat(localStorage.getItem("saldo")) || 0;
-      ultimoSaldo = saldoAnterior;
+      if (isNaN(novoValor)) return;
 
-      localStorage.setItem("saldo", valor);
-      document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
+      saldoAnterior = parseFloat(localStorage.getItem("saldo")) || 0;
+      saldoAtual = novoValor;
+
+      localStorage.setItem("saldo", novoValor);
+      document.getElementById('saldoAtual').innerText = "R$ " + novoValor.toFixed(2);
 
       document.getElementById('btnSalvarHistorico').style.display = 'inline-block';
       mostrarNotificacao("💾 Saldo salvo!");
     }
 
     function salvarNoHistorico() {
-      const novoSaldo = parseFloat(document.getElementById('saldo').value);
-      if (isNaN(novoSaldo)) return;
-
-      const diferenca = novoSaldo - ultimoSaldo;
+      const diferenca = saldoAtual - saldoAnterior;
       const tipo = diferenca > 0 ? "Crédito" : (diferenca < 0 ? "Débito" : "Sem alteração");
 
       if (tipo === "Sem alteração") {
@@ -106,15 +105,18 @@
       }
 
       const historico = JSON.parse(localStorage.getItem("historico")) || [];
+
       historico.push({
         tipo: `💰 ${tipo}`,
-        valor: diferenca,
+        alteracao: diferenca.toFixed(2),
+        de: saldoAnterior.toFixed(2),
+        para: saldoAtual.toFixed(2),
         data: new Date().toLocaleString()
       });
 
       localStorage.setItem("historico", JSON.stringify(historico));
       document.getElementById('btnSalvarHistorico').style.display = 'none';
-      mostrarNotificacao("✅ Alteração de saldo registrada!");
+      mostrarNotificacao("✅ Alteração registrada no histórico!");
     }
 
     function mostrarNotificacao(msg) {
