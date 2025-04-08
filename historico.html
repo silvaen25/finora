@@ -2,9 +2,10 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Histórico - Finora</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       margin: 0;
@@ -15,6 +16,11 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       color: white;
+    }
+
+    .modo-escuro {
+      background-color: #121212 !important;
+      background-image: none !important;
     }
 
     .menu {
@@ -68,21 +74,43 @@
       margin-bottom: 20px;
     }
 
-    .conteudo p {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-
-    .historico-lista {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .historico-lista li {
+    .transacao {
       background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+
+    .transacao strong {
+      color: #00ffaa;
+    }
+
+    .filtros {
+      margin-bottom: 20px;
+    }
+
+    .filtros select, .filtros button {
       padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 6px;
+      border-radius: 8px;
+      margin-right: 10px;
+      font-size: 14px;
+      border: none;
+    }
+
+    .modo-escuro .conteudo,
+    .modo-escuro .menu {
+      background-color: #1e1e1e !important;
+    }
+
+    .modo-escuro .transacao {
+      background-color: #2c2c2c;
+    }
+
+    canvas {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
     }
   </style>
 </head>
@@ -90,58 +118,122 @@
   <aside class="menu">
     <h1>$ finora</h1>
     <ul>
-      <li><a href="home.html">🏠&nbsp; Início</a></li>
-      <li><a href="dicas.html">💡&nbsp; Dicas</a></li>
-      <li><a href="aulas.html">📚&nbsp; Aulas</a></li>
-      <li><a href="suporte.html">🛠️&nbsp; Suporte</a></li>
-      <li><a href="calculadora.html">🧮&nbsp; Calculadora</a></li>
-      <li><a href="saldo.html">💰&nbsp; Saldo</a></li>
-      <li><a href="historico.html">📈&nbsp; Histórico</a></li>
-      <li><a href="index.html">🔓&nbsp; Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas</a></li>
+      <li><a href="aulas.html">📚 Aulas</a></li>
+      <li><a href="suporte.html">🛠️ Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="index.html">🔓 Sair</a></li>
     </ul>
   </aside>
 
   <main class="conteudo">
-    <h2>Histórico</h2>
-    <ul class="historico-lista" id="historico-lista">
-      <li>Carregando histórico...</li>
-    </ul>
+    <h2>📈 Histórico de Atividades</h2>
+
+    <div class="filtros">
+      <select id="filtroTipo">
+        <option value="todos">Mostrar tudo</option>
+        <option value="Cálculo">Somente Cálculos</option>
+        <option value="Saldo">Somente Saldo</option>
+      </select>
+      <button onclick="limparHistorico()">🗑️ Limpar histórico</button>
+    </div>
+
+    <div id="historico-container">
+      <p>Carregando histórico...</p>
+    </div>
+
+    <canvas id="grafico" width="400" height="200"></canvas>
   </main>
 
   <script>
-    // Função que carrega o histórico do localStorage
+    let historicoCompleto = [];
+
     function carregarHistorico() {
+      const container = document.getElementById("historico-container");
+      const filtro = document.getElementById("filtroTipo").value;
       const historico = JSON.parse(localStorage.getItem("historicoFinora")) || [];
+      historicoCompleto = historico;
 
-      const lista = document.getElementById("historico-lista");
-      lista.innerHTML = "";
+      const filtrado = filtro === "todos"
+        ? historico
+        : historico.filter(item => item.tipo === filtro);
 
-      if (historico.length === 0) {
-        lista.innerHTML = "<li>Você ainda não fez nenhuma transação.</li>";
+      container.innerHTML = "";
+      if (filtrado.length === 0) {
+        container.innerHTML = "<p>Nenhuma atividade registrada.</p>";
         return;
       }
 
-      historico.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.textContent = `${item.tipo} de R$ ${item.valor} em ${item.data}`;
-        lista.appendChild(li);
+      filtrado.reverse().forEach(item => {
+        const div = document.createElement("div");
+        div.className = "transacao";
+        div.innerHTML = `
+          <p><strong>Tipo:</strong> ${item.tipo}</p>
+          <p><strong>Valor:</strong> ${item.valor}</p>
+          <p><strong>Data:</strong> ${item.data}</p>
+        `;
+        container.appendChild(div);
+      });
+
+      atualizarGrafico(historico);
+    }
+
+    function limparHistorico() {
+      if (confirm("Tem certeza que deseja apagar todo o histórico?")) {
+        localStorage.removeItem("historicoFinora");
+        carregarHistorico();
+      }
+    }
+
+    function aplicarModoEscuroAutomatico() {
+      const hora = new Date().getHours();
+      if (hora >= 18 || hora < 6) {
+        document.body.classList.add("modo-escuro");
+      }
+    }
+
+    function atualizarGrafico(historico) {
+      const tipos = {};
+      historico.forEach(item => {
+        tipos[item.tipo] = (tipos[item.tipo] || 0) + 1;
+      });
+
+      const ctx = document.getElementById("grafico").getContext("2d");
+      if (window.meuGrafico) {
+        window.meuGrafico.destroy();
+      }
+
+      window.meuGrafico = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(tipos),
+          datasets: [{
+            label: 'Quantidade de atividades',
+            data: Object.values(tipos),
+            backgroundColor: ['#00ffaa', '#ffcc00'],
+            borderRadius: 8
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
       });
     }
 
-    // Exemplo: Você pode salvar uma transação com este código em outra página:
-    /*
-    const novaTransacao = {
-      tipo: "Entrada",
-      valor: 100,
-      data: new Date().toLocaleString()
-    };
-    const historico = JSON.parse(localStorage.getItem("historicoFinora")) || [];
-    historico.push(novaTransacao);
-    localStorage.setItem("historicoFinora", JSON.stringify(historico));
-    */
+    document.getElementById("filtroTipo").addEventListener("change", carregarHistorico);
 
-    // Carrega o histórico ao abrir a página
-    carregarHistorico();
+    window.onload = () => {
+      aplicarModoEscuroAutomatico();
+      carregarHistorico();
+    };
   </script>
 </body>
 </html>
