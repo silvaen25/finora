@@ -61,7 +61,13 @@
 
     .content h1 {
       font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .content h3 {
+      font-size: 20px;
       margin-bottom: 20px;
+      color: #00c853;
     }
 
     .content img {
@@ -87,14 +93,22 @@
 
   <div class="content">
     <h1 id="bemvindo">Bem-vindo!</h1>
+    <h3 id="saldoInfo">Carregando saldo...</h3>
     <img src="https://cdn-icons-png.flaticon.com/512/1130/1130083.png" alt="Símbolo financeiro">
   </div>
 
   <script>
-    const nome = localStorage.getItem("nomeUsuario");
-    if (nome) {
-      document.getElementById("bemvindo").innerText = `Bem-vindo, ${nome}!`;
+    const nome = localStorage.getItem("nomeUsuario") || "usuário";
+    const saldo = localStorage.getItem("saldoFinora");
+
+    document.getElementById("bemvindo").innerText = `Bem-vindo, ${nome}!`;
+
+    if (saldo !== null) {
+      document.getElementById("saldoInfo").innerText = `Seu saldo atual é de R$ ${parseFloat(saldo).toFixed(2)}`;
+    } else {
+      document.getElementById("saldoInfo").innerText = "Nenhum saldo registrado.";
     }
   </script>
 </body>
 </html>
+
