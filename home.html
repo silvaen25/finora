@@ -5,65 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Finora - Início</title>
   <style>
-    body {
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+      --cinza-claro: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #fff;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0e1e1e, #1f2f2f);
+      color: white;
+      display: flex;
     }
 
     .menu {
       position: fixed;
       top: 0;
       left: 0;
-      width: 200px;
-      height: 100%;
-      background-color: #1e1e1e;
-      padding: 20px;
+      width: 220px;
+      height: 100vh;
+      background-color: var(--preto);
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
     }
 
     .menu h2 {
-      color: #00ff88;
-      margin-bottom: 30px;
+      color: var(--verde-neon);
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
-      padding: 0;
     }
 
     .menu li {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
       font-size: 16px;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.3s;
     }
 
     .menu a:hover {
-      color: #00ff88;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--verde-neon);
     }
 
     .conteudo {
       margin-left: 220px;
+      padding: 50px 30px;
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .conteudo h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: var(--verde-neon);
     }
 
     .conteudo img {
-      max-width: 300px;
+      max-width: 180px;
+      margin-bottom: 25px;
+      animation: flutuar 2.5s ease-in-out infinite;
     }
 
     .saldo-info {
-      margin-top: 20px;
       font-size: 20px;
       font-weight: bold;
-      color: #1e1e1e;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 12px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      max-width: 90%;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes flutuar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+      }
+      .conteudo {
+        margin-left: 0;
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -84,20 +140,20 @@
 
   <main class="conteudo">
     <h1 id="bemvindo">Bem-vindo!</h1>
-    <img src="https://cdn-icons-png.flaticon.com/512/1130/1130083.png" alt="Ícone">
-    <p class="saldo-info" id="infoSaldo"></p>
+    <img src="https://cdn-icons-png.flaticon.com/512/1130/1130083.png" alt="Ícone Finanças">
+    <p class="saldo-info" id="infoSaldo">Carregando saldo...</p>
   </main>
 
   <script>
-    const nome = localStorage.getItem("nomeUsuario");
-    if (nome) {
-      document.getElementById("bemvindo").innerText = `Bem-vindo, ${nome}!`;
-    }
+    const nome = localStorage.getItem("finora_username") || "usuário";
+    document.getElementById("bemvindo").innerText = `👋 Olá, ${nome}!`;
 
     const saldo = localStorage.getItem("saldoFinora");
     if (saldo !== null) {
       const saldoFormatado = parseFloat(saldo).toFixed(2);
       document.getElementById("infoSaldo").innerText = `💰 Seu saldo: R$ ${saldoFormatado}`;
+    } else {
+      document.getElementById("infoSaldo").innerText = "💸 Saldo ainda não cadastrado.";
     }
   </script>
 </body>
