@@ -64,12 +64,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 40px;
+      justify-content: flex-start;
+      padding: 40px 20px;
       margin: 20px;
-      background-color: rgba(0, 0, 0, 0.65);
+      background-color: rgba(0, 0, 0, 0.6);
       border-radius: 12px;
-      position: relative;
+      backdrop-filter: blur(5px);
     }
 
     .conteudo h2 {
@@ -77,14 +77,6 @@
       margin-bottom: 30px;
       text-align: center;
       color: #00ffaa;
-    }
-
-    .relogio {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 18px;
-      color: #00ff88;
     }
 
     .card-saldo {
@@ -95,18 +87,6 @@
       width: 100%;
       max-width: 500px;
       text-align: center;
-      animation: fadeInUp 0.6s ease;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .card-saldo p {
@@ -161,6 +141,17 @@
       box-shadow: 0 0 8px rgba(0,255,136,0.5);
     }
 
+    .ia-feedback {
+      margin-top: 30px;
+      font-style: italic;
+      color: #ccc;
+      background-color: rgba(0, 255, 136, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: center;
+    }
+
     .modo-escuro .conteudo,
     .modo-escuro .menu {
       background-color: #1e1e1e !important;
@@ -210,7 +201,6 @@
   </aside>
 
   <main class="conteudo">
-    <div class="relogio" id="relogio">--:--:--</div>
     <h2>💰 Meu Saldo</h2>
     <div class="card-saldo">
       <p>Insira seu saldo atual:</p>
@@ -220,6 +210,9 @@
       <p class="saldo-exibido">Saldo atual: <span id="saldoAtual">R$ 0,00</span></p>
       <div class="notificacao" id="notificacao">💾 Saldo salvo com sucesso!</div>
     </div>
+    <div class="ia-feedback" id="iaMensagem">
+      Analisando seus dados financeiros...
+    </div>
   </main>
 
   <script>
@@ -228,11 +221,11 @@
       if (isNaN(valor)) return;
 
       localStorage.setItem("saldoFinora", valor);
-      document.getElementById('saldoAtual').innerText = "R$ " + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+      document.getElementById('saldoAtual').innerText = "R$ " + valor.toFixed(2);
 
       const transacao = {
         tipo: "Atualização de Saldo",
-        valor: "R$ " + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 }),
+        valor: "R$ " + valor.toFixed(2),
         data: new Date().toLocaleString()
       };
 
@@ -245,6 +238,23 @@
       setTimeout(() => {
         noti.style.display = "none";
       }, 3000);
+
+      mostrarMensagemIA(valor);
+    }
+
+    function mostrarMensagemIA(valor) {
+      const ia = document.getElementById("iaMensagem");
+      let msg = "";
+
+      if (valor < 100) {
+        msg = "⚠️ Seu saldo está baixo. Que tal economizar um pouco mais esta semana?";
+      } else if (valor < 1000) {
+        msg = "💡 Você está no caminho! Continue acompanhando suas finanças.";
+      } else {
+        msg = "🚀 Excelente! Que tal pensar em investimentos ou guardar para algo especial?";
+      }
+
+      ia.innerText = msg;
     }
 
     function aplicarModoEscuroAutomatico() {
@@ -254,20 +264,11 @@
       }
     }
 
-    function atualizarRelogio() {
-      const agora = new Date();
-      const horas = agora.getHours().toString().padStart(2, '0');
-      const minutos = agora.getMinutes().toString().padStart(2, '0');
-      const segundos = agora.getSeconds().toString().padStart(2, '0');
-      document.getElementById('relogio').textContent = `${horas}:${minutos}:${segundos}`;
-    }
-
     window.onload = () => {
       const saldo = parseFloat(localStorage.getItem("saldoFinora")) || 0;
-      document.getElementById('saldoAtual').innerText = "R$ " + saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+      document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
       aplicarModoEscuroAutomatico();
-      atualizarRelogio();
-      setInterval(atualizarRelogio, 1000);
+      mostrarMensagemIA(saldo);
     };
   </script>
 </body>
