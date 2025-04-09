@@ -6,15 +6,23 @@
   <title>Histórico - Finora</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      background-image: url('https://i.pinimg.com/originals/89/bb/2d/89bb2dd02fa9ae3f8de10f1a71d87be9.jpg');
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.pinimg.com/originals/89/bb/2d/89bb2dd02fa9ae3f8de10f1a71d87be9.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
       color: white;
+      display: flex;
     }
 
     .modo-escuro {
@@ -28,7 +36,7 @@
       left: 0;
       width: 230px;
       height: 100vh;
-      background-color: #1e1e1e;
+      background-color: var(--preto);
       padding: 30px 20px;
       box-shadow: 2px 0 10px rgba(0,0,0,0.4);
       display: flex;
@@ -36,7 +44,7 @@
     }
 
     .menu h1 {
-      color: #00ff88;
+      color: var(--verde-neon);
       font-size: 26px;
       text-align: center;
       margin-bottom: 40px;
@@ -65,22 +73,22 @@
     .menu a:hover,
     .menu a.ativo {
       background-color: rgba(255, 255, 255, 0.1);
-      color: #00ff88;
+      color: var(--verde-neon);
     }
 
     .conteudo {
       margin-left: 230px;
-      padding: 40px;
+      padding: 50px 30px;
       flex: 1;
+      min-height: 100vh;
       background-color: rgba(0, 0, 0, 0.65);
       border-radius: 12px;
-      min-height: 100vh;
     }
 
     .conteudo h2 {
       font-size: 32px;
       margin-bottom: 10px;
-      color: #00ffaa;
+      color: var(--verde-neon);
       text-align: center;
     }
 
@@ -113,7 +121,7 @@
     }
 
     .transacao strong {
-      color: #00ffaa;
+      color: var(--verde-neon);
     }
 
     canvas {
@@ -150,15 +158,15 @@
   <aside class="menu">
     <h1>$ finora</h1>
     <ul>
-      <li><a href="home.html"><i>🏠</i> Início</a></li>
-      <li><a href="dicas.html"><i>💡</i> Dicas</a></li>
-      <li><a href="aulas.html"><i>📚</i> Aulas</a></li>
-      <li><a href="suporte.html"><i>🛠️</i> Suporte</a></li>
-      <li><a href="calculadora.html"><i>🧮</i> Calculadora</a></li>
-      <li><a href="saldo.html"><i>💰</i> Saldo</a></li>
-      <li><a href="historico.html" class="ativo"><i>📈</i> Histórico</a></li>
-      <li><a href="ia.html"><i>🛡️</i> IA Finora</a></li>
-      <li><a href="index.html"><i>🔓</i> Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas financeiras</a></li>
+      <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
+      <li><a href="suporte.html">💬 Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Meu Saldo</a></li>
+      <li><a href="historico.html" class="ativo">📈 Histórico</a></li>
+      <li><a href="ia.html">🤖 IA Finora</a></li>
+      <li><a href="index.html">🚪 Sair</a></li>
     </ul>
   </aside>
 
