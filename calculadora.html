@@ -4,82 +4,90 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora - Finora</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      background-image: url('fundo.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: white;
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+      --azul-claro: #00cc99;
     }
 
-    .modo-escuro {
-      background-color: #121212 !important;
-      background-image: none !important;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0e1e1e, #1f2f2f);
+      color: white;
+      display: flex;
     }
 
     .menu {
-      width: 220px;
-      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 230px;
       height: 100vh;
-      padding: 20px;
+      background-color: var(--preto);
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
     }
 
     .menu h1 {
-      font-size: 24px;
-      margin-bottom: 30px;
+      color: var(--verde-neon);
+      font-size: 26px;
       text-align: center;
-      color: #00ff88;
+      margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
-      padding: 0;
-    }
-
-    .menu li {
-      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 17px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
-      padding: 8px 12px;
+      gap: 10px;
       border-radius: 8px;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
 
     .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--verde-neon);
     }
 
     .conteudo {
+      margin-left: 230px;
+      padding: 50px 30px;
       flex: 1;
-      padding: 40px;
-      margin: 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      position: relative;
+      min-height: 100vh;
+      animation: fadeIn 1s ease;
     }
 
     .conteudo h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
+      font-size: 30px;
+      color: var(--verde-neon);
+      margin-bottom: 30px;
     }
 
     .relogio {
       position: absolute;
       top: 20px;
-      right: 30px;
+      right: 40px;
       font-size: 18px;
-      color: #00ff88;
+      color: var(--verde-neon);
     }
 
     .calc-container {
@@ -130,18 +138,18 @@
 
     .btn-salvar {
       margin-top: 20px;
-      background-color: #00ffaa;
+      background-color: var(--verde-neon);
       font-weight: bold;
     }
 
     .botoes button:nth-child(15) {
-      background-color: #00cc99;
+      background-color: var(--azul-claro);
       color: white;
       font-weight: bold;
     }
 
     .notificacao {
-      background-color: #00ff88;
+      background-color: var(--verde-neon);
       color: #000;
       padding: 10px 20px;
       border-radius: 10px;
@@ -150,32 +158,20 @@
       font-weight: bold;
     }
 
-    .modo-escuro .conteudo,
-    .modo-escuro .menu {
-      background-color: #1e1e1e !important;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .modo-escuro .menu a:hover {
-      background-color: #333;
-    }
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+      }
 
-    .modo-escuro button {
-      background-color: #333;
-      color: white;
-    }
-
-    .modo-escuro .btn-salvar {
-      background-color: #00cc99;
-    }
-
-    .modo-escuro .notificacao {
-      background-color: #00cc99;
-      color: white;
-    }
-
-    .modo-escuro input[type="text"] {
-      background-color: #333;
-      color: #fff;
+      .conteudo {
+        margin-left: 0;
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -183,20 +179,21 @@
   <aside class="menu">
     <h1>$ finora</h1>
     <ul>
-      <li><a href="home.html">🏠&nbsp; Início</a></li>
-      <li><a href="dicas.html">💡&nbsp; Dicas</a></li>
-      <li><a href="aulas.html">📚&nbsp; Aulas</a></li>
-      <li><a href="suporte.html">🛠️&nbsp; Suporte</a></li>
-      <li><a href="calculadora.html">🧮&nbsp; Calculadora</a></li>
-      <li><a href="saldo.html">💰&nbsp; Saldo</a></li>
-      <li><a href="historico.html">📈&nbsp; Histórico</a></li>
-      <li><a href="index.html">🔓&nbsp; Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas</a></li>
+      <li><a href="aulas.html">📚 Aulas</a></li>
+      <li><a href="suporte.html">🛠️ Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="ia.html">🤖 IA Finora</a></li>
+      <li><a href="index.html">🔓 Sair</a></li>
     </ul>
   </aside>
 
   <main class="conteudo">
     <div class="relogio" id="relogio">--:--:--</div>
-    <h2>Calculadora</h2>
+    <h2>🧮 Calculadora</h2>
     <div class="calc-container">
       <input type="text" id="display" readonly />
       <div class="botoes">
@@ -263,13 +260,6 @@
       }, 3000);
     }
 
-    function aplicarModoEscuroAutomatico() {
-      const hora = new Date().getHours();
-      if (hora >= 18 || hora < 6) {
-        document.body.classList.add("modo-escuro");
-      }
-    }
-
     function atualizarRelogio() {
       const agora = new Date();
       const horas = agora.getHours().toString().padStart(2, '0');
@@ -278,8 +268,8 @@
       document.getElementById('relogio').textContent = `${horas}:${minutos}:${segundos}`;
     }
 
-    aplicarModoEscuroAutomatico();
     setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
   </script>
 </body>
 </html>
