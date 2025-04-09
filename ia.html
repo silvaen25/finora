@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IA Finora</title>
+  <title>Finora - IA</title>
   <style>
     :root {
       --verde-neon: #00ff88;
@@ -22,60 +22,64 @@
       background: linear-gradient(135deg, #0e1e1e, #1f2f2f);
       color: white;
       display: flex;
-      min-height: 100vh;
     }
 
     .menu {
       position: fixed;
       top: 0;
       left: 0;
-      width: 220px;
+      width: 230px;
       height: 100vh;
       background-color: var(--preto);
       padding: 30px 20px;
       box-shadow: 2px 0 10px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .menu h2 {
       color: var(--verde-neon);
-      font-size: 24px;
+      font-size: 26px;
       text-align: center;
       margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .menu li {
-      margin-bottom: 20px;
-    }
-
-    .menu a {
+    .menu li a {
       color: white;
       text-decoration: none;
-      font-size: 16px;
-      display: block;
-      padding: 8px 12px;
+      font-size: 17px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       border-radius: 8px;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .menu a:hover {
+    .menu li a:hover {
       background-color: rgba(255, 255, 255, 0.1);
       color: var(--verde-neon);
     }
 
-    .chat-container {
-      margin-left: 220px;
+    .conteudo {
+      margin-left: 230px;
       padding: 50px 30px;
       flex: 1;
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
       animation: fadeIn 1s ease;
     }
 
-    .chat-container h1 {
+    .conteudo h1 {
       font-size: 28px;
       margin-bottom: 20px;
       color: var(--verde-neon);
@@ -85,7 +89,7 @@
     .messages {
       background-color: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 15px;
+      border-radius: 12px;
       padding: 20px;
       height: 400px;
       overflow-y: auto;
@@ -110,14 +114,18 @@
       color: white;
     }
 
+    .input-container {
+      display: flex;
+      gap: 10px;
+    }
+
     input[type="text"] {
       padding: 12px;
       font-size: 16px;
       border-radius: 8px;
       border: none;
       outline: none;
-      width: calc(100% - 120px);
-      margin-right: 10px;
+      flex: 1;
       background-color: #2a2a2a;
       color: white;
     }
@@ -147,8 +155,7 @@
       .menu {
         display: none;
       }
-
-      .chat-container {
+      .conteudo {
         margin-left: 0;
         padding: 30px 20px;
       }
@@ -159,22 +166,22 @@
   <aside class="menu">
     <h2>$ finora</h2>
     <ul>
-      <li><a href="home.html">🏠 Início</a></li>
-      <li><a href="dicas.html">💡 Dicas</a></li>
-      <li><a href="aulas.html">📘 Aulas</a></li>
-      <li><a href="suporte.html">🆘 Suporte</a></li>
+      <li><a href="home.html">🏡 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas financeiras</a></li>
+      <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
+      <li><a href="suporte.html">💬 Suporte</a></li>
       <li><a href="calculadora.html">🧮 Calculadora</a></li>
-      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="saldo.html">💰 Meu Saldo</a></li>
       <li><a href="historico.html">📈 Histórico</a></li>
       <li><a href="ia.html">🤖 IA Finora</a></li>
       <li><a href="index.html">🚪 Sair</a></li>
     </ul>
   </aside>
 
-  <main class="chat-container">
+  <main class="conteudo">
     <h1>Converse com a IA Finora 🤖</h1>
     <div class="messages" id="chat"></div>
-    <div style="display: flex;">
+    <div class="input-container">
       <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
       <button onclick="sendMessage()">Enviar</button>
     </div>
