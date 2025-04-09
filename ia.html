@@ -5,89 +5,152 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IA Finora</title>
   <style>
-    body {
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+      --cinza-fundo: #121212;
+      --cinza-claro: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0e1e1e, #1f2f2f);
+      color: white;
       display: flex;
+      min-height: 100vh;
     }
 
     .menu {
-      width: 200px;
-      height: 100vh;
-      background-color: #1e1e1e;
-      padding: 20px;
       position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: var(--preto);
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
     }
 
     .menu h2 {
-      color: #00c853;
-      margin-bottom: 20px;
+      color: var(--verde-neon);
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
-      padding: 0;
     }
 
     .menu li {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-size: 16px;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.3s;
     }
 
     .menu a:hover {
-      color: #00c853;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--verde-neon);
     }
 
     .chat-container {
       margin-left: 220px;
-      padding: 20px;
+      padding: 40px 30px;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 1s ease;
+    }
+
+    .chat-container h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: var(--verde-neon);
     }
 
     .messages {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 15px;
+      background-color: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 15px;
+      padding: 20px;
       height: 400px;
       overflow-y: auto;
-      margin-bottom: 15px;
-      background-color: #f9f9f9;
+      margin-bottom: 20px;
+      backdrop-filter: blur(6px);
     }
 
     .message {
       margin: 10px 0;
+      line-height: 1.4;
+    }
+
+    .user, .bot {
+      font-weight: bold;
     }
 
     .user {
-      font-weight: bold;
-      color: #00c853;
+      color: var(--verde-neon);
     }
 
     .bot {
-      font-weight: bold;
-      color: #1e1e1e;
+      color: white;
     }
 
-    input, button {
-      padding: 10px;
+    input[type="text"] {
+      padding: 12px;
       font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      width: calc(100% - 120px);
+      margin-right: 10px;
+      background-color: #2a2a2a;
+      color: white;
     }
 
     button {
-      background-color: #00c853;
+      padding: 12px 20px;
+      font-size: 16px;
       border: none;
-      color: white;
+      border-radius: 8px;
+      background-color: var(--verde-neon);
+      color: #1e1e1e;
+      font-weight: bold;
       cursor: pointer;
-      border-radius: 5px;
+      transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #009f42;
+      background-color: #00cc66;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+      }
+      .chat-container {
+        margin-left: 0;
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -95,23 +158,25 @@
   <div class="menu">
     <h2>$ finora</h2>
     <ul>
-      <li><a href="home.html">?? In�cio</a></li>
-      <li><a href="dicas.html">?? Dicas</a></li>
-      <li><a href="aulas.html">?? Aulas</a></li>
-      <li><a href="suporte.html">?? Suporte</a></li>
-      <li><a href="calculadora.html">?? Calculadora</a></li>
-      <li><a href="saldo.html">?? Saldo</a></li>
-      <li><a href="historico.html">?? Hist�rico</a></li>
-      <li><a href="ia.html">?? IA Finora</a></li>
-      <li><a href="index.html">?? Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas</a></li>
+      <li><a href="aulas.html">📘 Aulas</a></li>
+      <li><a href="suporte.html">🆘 Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="ia.html">🤖 IA Finora</a></li>
+      <li><a href="index.html">🚪 Sair</a></li>
     </ul>
   </div>
 
   <div class="chat-container">
-    <h1>Converse com a IA Finora</h1>
+    <h1>Converse com a IA Finora 🤖</h1>
     <div class="messages" id="chat"></div>
-    <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
-    <button onclick="sendMessage()">Enviar</button>
+    <div style="display: flex;">
+      <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
   </div>
 
   <script>
@@ -121,13 +186,11 @@
       const userMessage = input.value.trim();
       if (userMessage === "") return;
 
-      // Adiciona mensagem do usu�rio
       const userDiv = document.createElement('div');
       userDiv.className = "message user";
-      userDiv.innerHTML = `<span class="user">Voc�:</span> ${userMessage}`;
+      userDiv.innerHTML = `<span class="user">Você:</span> ${userMessage}`;
       chat.appendChild(userDiv);
 
-      // Gera resposta fake
       const botResponse = getFakeResponse(userMessage);
       const botDiv = document.createElement('div');
       botDiv.className = "message bot";
@@ -141,13 +204,13 @@
     function getFakeResponse(input) {
       const lower = input.toLowerCase();
       if (lower.includes("guardar dinheiro")) {
-        return "Uma boa ideia � guardar pelo menos 10% de tudo o que voc� ganha.";
+        return "Uma boa ideia é guardar pelo menos 10% de tudo o que você ganha. 💰";
       } else if (lower.includes("investir")) {
-        return "Voc� pode come�ar com Tesouro Direto ou fundos de investimento.";
-      } else if (lower.includes("oi") || lower.includes("ol�")) {
-        return "Ol�! Como posso te ajudar hoje com seu dinheiro?";
+        return "Você pode começar com Tesouro Direto ou fundos de investimento. 📈";
+      } else if (lower.includes("oi") || lower.includes("olá")) {
+        return "Olá! Como posso te ajudar hoje com seu dinheiro? 🤗";
       } else {
-        return "Legal! Ainda estou aprendendo, mas em breve saberei responder isso. ??";
+        return "Legal! Ainda estou aprendendo, mas em breve saberei responder isso. 🚀";
       }
     }
   </script>
