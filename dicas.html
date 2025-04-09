@@ -2,81 +2,120 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dicas - Finora</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+      --cinza-claro: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      background-image: url('fundo.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0e1e1e, #1f2f2f);
       color: white;
+      display: flex;
     }
 
     .menu {
-      width: 220px;
-      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 230px;
       height: 100vh;
-      padding: 20px;
+      background-color: var(--preto);
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
     }
 
     .menu h1 {
-      font-size: 24px;
-      margin-bottom: 30px;
+      color: var(--verde-neon);
+      font-size: 26px;
       text-align: center;
-      color: #00ff88;
+      margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
-      padding: 0;
-    }
-
-    .menu li {
-      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 17px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
-      padding: 8px 12px;
+      gap: 10px;
       border-radius: 8px;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
 
     .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--verde-neon);
     }
 
     .conteudo {
+      margin-left: 230px;
+      padding: 50px 30px;
       flex: 1;
-      padding: 40px;
-      margin: 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
+      min-height: 100vh;
+      animation: fadeIn 1s ease;
     }
 
     .conteudo h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
+      font-size: 30px;
+      color: var(--verde-neon);
+      margin-bottom: 25px;
+      text-align: center;
     }
 
     .dica {
       background-color: rgba(255, 255, 255, 0.1);
       padding: 20px;
       margin-bottom: 20px;
-      border-radius: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
     }
 
     .dica h3 {
       color: #00ffcc;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .dica p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+      }
+      .conteudo {
+        margin-left: 0;
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -84,14 +123,15 @@
   <aside class="menu">
     <h1>$ finora</h1>
     <ul>
-      <li><a href="home.html">🏠 Início</a></li>
-      <li><a href="dicas.html">💡 Dicas</a></li>
-      <li><a href="aulas.html">📚 Aulas</a></li>
-      <li><a href="suporte.html">🛠️ Suporte</a></li>
+      <li><a href="home.html">🏡 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas financeiras</a></li>
+      <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
+      <li><a href="suporte.html">💬 Suporte</a></li>
       <li><a href="calculadora.html">🧮 Calculadora</a></li>
-      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="saldo.html">💰 Meu Saldo</a></li>
       <li><a href="historico.html">📈 Histórico</a></li>
-      <li><a href="index.html">🔓 Sair</a></li>
+      <li><a href="ia.html">🤖 IA Finora</a></li>
+      <li><a href="index.html">🚪 Sair</a></li>
     </ul>
   </aside>
 
@@ -121,6 +161,21 @@
     <div class="dica">
       <h3>5. Tenha um Objetivo</h3>
       <p>Juntar dinheiro pra um sonho (tipo um celular, viagem ou futuro curso) dá mais motivação pra economizar.</p>
+    </div>
+
+    <div class="dica">
+      <h3>6. Compare Preços Sempre</h3>
+      <p>Antes de comprar, olhe em diferentes lojas. Às vezes a economia de alguns reais faz diferença no fim do mês.</p>
+    </div>
+
+    <div class="dica">
+      <h3>7. Crie uma Mesada pra Você Mesmo</h3>
+      <p>Separe um valor fixo por mês para seus gastos pessoais. Assim, você aprende a se controlar melhor.</p>
+    </div>
+
+    <div class="dica">
+      <h3>8. Use Aplicativos de Controle</h3>
+      <p>Aplicativos como o Finora te ajudam a visualizar melhor sua grana, seus gastos e seus objetivos.</p>
     </div>
   </main>
 </body>
