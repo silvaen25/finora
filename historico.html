@@ -23,54 +23,58 @@
     }
 
     .menu {
-      width: 220px;
-      background-color: #0d1b1e;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 230px;
       height: 100vh;
-      padding: 20px;
+      background-color: #1e1e1e;
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
     }
 
     .menu h1 {
-      font-size: 24px;
-      margin-bottom: 30px;
-      text-align: center;
       color: #00ff88;
+      font-size: 26px;
+      text-align: center;
+      margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       padding: 0;
-    }
-
-    .menu li {
-      margin-bottom: 12px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 17px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
-      padding: 10px 14px;
+      gap: 10px;
       border-radius: 8px;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
 
     .menu a:hover,
     .menu a.ativo {
-      background-color: #1b2e2e;
-    }
-
-    .menu a i {
-      margin-right: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #00ff88;
     }
 
     .conteudo {
-      flex: 1;
+      margin-left: 230px;
       padding: 40px;
-      margin: 20px;
+      flex: 1;
       background-color: rgba(0, 0, 0, 0.65);
       border-radius: 12px;
+      min-height: 100vh;
     }
 
     .conteudo h2 {
