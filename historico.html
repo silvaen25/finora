@@ -27,6 +27,9 @@
       background-color: rgba(0, 0, 0, 0.85);
       height: 100vh;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .menu h1 {
@@ -58,6 +61,18 @@
 
     .menu a:hover {
       background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .menu button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #00ffaa;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
     }
 
     .conteudo {
@@ -139,17 +154,20 @@
 </head>
 <body>
   <aside class="menu">
-    <h1>$ finora</h1>
-    <ul>
-      <li><a href="home.html">🏠 Início</a></li>
-      <li><a href="dicas.html">💡 Dicas</a></li>
-      <li><a href="aulas.html">📚 Aulas</a></li>
-      <li><a href="suporte.html">🛠️ Suporte</a></li>
-      <li><a href="calculadora.html">🧮 Calculadora</a></li>
-      <li><a href="saldo.html">💰 Saldo</a></li>
-      <li><a href="historico.html">📈 Histórico</a></li>
-      <li><a href="index.html">🔓 Sair</a></li>
-    </ul>
+    <div>
+      <h1>$ finora</h1>
+      <ul>
+        <li><a href="home.html">🏠 Início</a></li>
+        <li><a href="dicas.html">💡 Dicas</a></li>
+        <li><a href="aulas.html">📚 Aulas</a></li>
+        <li><a href="suporte.html">🛠️ Suporte</a></li>
+        <li><a href="calculadora.html">🧮 Calculadora</a></li>
+        <li><a href="saldo.html">💰 Saldo</a></li>
+        <li><a href="historico.html">📈 Histórico</a></li>
+        <li><a href="index.html">🔓 Sair</a></li>
+      </ul>
+    </div>
+    <button onclick="abrirIA()">💬 Finora IA</button>
   </aside>
 
   <main class="conteudo">
@@ -249,6 +267,10 @@
           }
         }
       });
+    }
+
+    function abrirIA() {
+      alert("Olá! Eu sou a Finora IA 🤖. Estou aqui para te ajudar com educação financeira. Em breve você poderá conversar comigo direto pelo site!");
     }
 
     document.getElementById("filtroTipo").addEventListener("change", carregarHistorico);
