@@ -11,22 +11,17 @@
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://www.nordinvestimentos.com.br/cdn-cgi/imagedelivery/WVyV4OkToIxntlRloKFH7Q/wp-content/uploads/2023/05/Fundos-de-Investimento-para-voc--conhecer.jpg/format=auto,w=785,h=442') no-repeat center center fixed;
+      background: url('https://i.ibb.co/sKB4FCb/background-financeiro-dark.png') no-repeat center center fixed;
       background-size: cover;
       color: white;
       display: flex;
-    }
-
-    .modo-escuro {
-      background-color: #00ff88 !important;
-      background-image: none !important;
     }
 
     .menu {
@@ -54,7 +49,6 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      padding: 0;
     }
 
     .menu a {
@@ -91,7 +85,6 @@
       font-size: 32px;
       margin-bottom: 30px;
       color: var(--verde-neon);
-      text-align: center;
     }
 
     .card-saldo {
@@ -167,26 +160,6 @@
       text-align: center;
     }
 
-    .modo-escuro .conteudo,
-    .modo-escuro .menu {
-      background-color: #1e1e1e !important;
-    }
-
-    .modo-escuro button {
-      background-color: #00cc99;
-      color: white;
-    }
-
-    .modo-escuro .notificacao {
-      background-color: #00cc99;
-      color: white;
-    }
-
-    .modo-escuro input[type="number"] {
-      background-color: #333;
-      color: #fff;
-    }
-
     @media (max-width: 768px) {
       .menu {
         display: none;
@@ -210,7 +183,7 @@
       <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
       <li><a href="suporte.html">💬 Suporte</a></li>
       <li><a href="calculadora.html">🧮 Calculadora</a></li>
-      <li><a href="saldo.html">💰 Meu Saldo</a></li>
+      <li><a href="saldo.html" class="ativo">💰 Meu Saldo</a></li>
       <li><a href="historico.html">📈 Histórico</a></li>
       <li><a href="ia.html">🤖 IA Finora</a></li>
       <li><a href="gastos.html">🥧 Seus Gastos</a></li>
@@ -276,17 +249,9 @@
       ia.innerText = msg;
     }
 
-    function aplicarModoEscuroAutomatico() {
-      const hora = new Date().getHours();
-      if (hora >= 18 || hora < 6) {
-        document.body.classList.add("modo-escuro");
-      }
-    }
-
     window.onload = () => {
       const saldo = parseFloat(localStorage.getItem("saldoFinora")) || 0;
       document.getElementById('saldoAtual').innerText = "R$ " + saldo.toFixed(2);
-      aplicarModoEscuroAutomatico();
       mostrarMensagemIA(saldo);
     };
   </script>
