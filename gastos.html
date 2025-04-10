@@ -8,105 +8,122 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('https://img.freepik.com/fotos-gratis/abstrato-da-tecnologia-futurista-do-dinheiro-da-financa_53876-124584.jpg') no-repeat center center fixed;
-      background-size: cover;
+      font-family: Arial, sans-serif;
       display: flex;
+      background-image: url('https://www.nordinvestimentos.com.br/cdn-cgi/imagedelivery/WVyV4OkToIxntlRloKFH7Q/wp-content/uploads/2023/05/Fundos-de-Investimento-para-voc--conhecer.jpg/format=auto,w=785,h=442');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: white;
     }
 
+    .modo-escuro {
+      background-color: #121212 !important;
+      background-image: none !important;
+    }
+
     .menu {
-      width: 230px;
-      height: 100vh;
+      width: 220px;
       background-color: rgba(0, 0, 0, 0.85);
-      padding: 30px 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
+      height: 100vh;
+      padding: 20px;
     }
 
     .menu h1 {
-      color: #00ff88;
-      font-size: 26px;
+      font-size: 24px;
+      margin-bottom: 30px;
       text-align: center;
-      margin-bottom: 40px;
+      color: #00ff88;
     }
 
     .menu ul {
       list-style: none;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    }
+
+    .menu li {
+      margin-bottom: 15px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-size: 17px;
-      padding: 10px;
-      border-radius: 8px;
+      font-size: 16px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      transition: 0.3s;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.3s;
     }
 
-    .menu a:hover, .menu a.ativo {
-      background-color: rgba(255,255,255,0.1);
-      color: #00ff88;
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
-    main.conteudo {
+    .conteudo {
       flex: 1;
-      padding: 50px;
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 12px;
+      padding: 40px 20px;
       margin: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
     }
 
-    main h2 {
-      text-align: center;
+    .conteudo h2 {
       font-size: 32px;
-      color: #00ff88;
+      margin-bottom: 30px;
+      text-align: center;
+      color: #00ffaa;
+    }
+
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 30px;
     }
 
-    .gastos-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: center;
-    }
-
-    .gastos-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .gastos-form input, .gastos-form button {
+    .formulario input {
       padding: 10px;
       font-size: 16px;
       border-radius: 8px;
       border: none;
       width: 250px;
+      text-align: center;
     }
 
-    .gastos-form button {
+    .formulario button {
+      padding: 10px 20px;
+      font-size: 16px;
       background-color: #00ffaa;
-      font-weight: bold;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
     }
 
-    .gastos-form button:hover {
-      background-color: #00cc88;
+    .formulario button:hover {
+      background-color: #00dd99;
     }
 
-    canvas {
+    #grafico {
+      max-width: 400px;
+      margin: 0 auto;
       background-color: white;
       border-radius: 10px;
       padding: 20px;
+    }
+
+    .modo-escuro .conteudo,
+    .modo-escuro .menu {
+      background-color: #1e1e1e !important;
+    }
+
+    .modo-escuro input {
+      background-color: #333;
+      color: white;
     }
 
     @media (max-width: 768px) {
@@ -114,9 +131,11 @@
         display: none;
       }
 
-      main.conteudo {
+      .conteudo {
         margin: 0;
         border-radius: 0;
+        height: 100vh;
+        overflow-y: auto;
       }
     }
   </style>
@@ -125,85 +144,81 @@
   <aside class="menu">
     <h1>$ finora</h1>
     <ul>
-      <li><a href="home.html">?? In�cio</a></li>
-      <li><a href="dicas.html">?? Dicas</a></li>
-      <li><a href="aulas.html">?? Aulas</a></li>
-      <li><a href="suporte.html">??? Suporte</a></li>
-      <li><a href="calculadora.html">?? Calculadora</a></li>
-      <li><a href="saldo.html">?? Saldo</a></li>
-      <li><a href="historico.html">?? Hist�rico</a></li>
-      <li><a href="gastos.html" class="ativo">?? Seus Gastos</a></li>
-      <li><a href="index.html">?? Sair</a></li>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas</a></li>
+      <li><a href="aulas.html">📚 Aulas</a></li>
+      <li><a href="suporte.html">🛠️ Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="gastos.html">📊 Seus Gastos</a></li>
+      <li><a href="index.html">🔓 Sair</a></li>
     </ul>
   </aside>
 
   <main class="conteudo">
-    <h2>?? Seus Gastos</h2>
-    <div class="gastos-container">
-      <div class="gastos-form">
-        <input type="text" id="categoria" placeholder="Categoria (ex: Comida)">
-        <input type="number" id="valor" placeholder="Valor (ex: 120.50)">
-        <button onclick="adicionarGasto()">Adicionar Gasto</button>
-      </div>
-      <canvas id="graficoPizza" width="400" height="400"></canvas>
+    <h2>📊 Seus Gastos</h2>
+    <div class="formulario">
+      <input type="text" id="categoria" placeholder="Categoria (ex: Alimentação)" />
+      <input type="number" id="valor" placeholder="Valor (ex: 50.00)" />
+      <button onclick="adicionarGasto()">Adicionar Gasto</button>
     </div>
+    <canvas id="grafico"></canvas>
   </main>
 
   <script>
-    let dadosGastos = {};
+    const categorias = [];
+    const valores = [];
 
     function adicionarGasto() {
       const categoria = document.getElementById("categoria").value.trim();
       const valor = parseFloat(document.getElementById("valor").value);
 
-      if (!categoria || isNaN(valor)) {
-        alert("Preencha uma categoria v�lida e um valor num�rico.");
-        return;
-      }
+      if (!categoria || isNaN(valor)) return;
 
-      dadosGastos[categoria] = (dadosGastos[categoria] || 0) + valor;
-
+      categorias.push(categoria);
+      valores.push(valor);
       atualizarGrafico();
+
       document.getElementById("categoria").value = "";
       document.getElementById("valor").value = "";
     }
 
+    let meuGrafico;
+
     function atualizarGrafico() {
-      const ctx = document.getElementById("graficoPizza").getContext("2d");
+      const ctx = document.getElementById("grafico").getContext("2d");
+      if (meuGrafico) meuGrafico.destroy();
 
-      if (window.meuGraficoPizza) {
-        window.meuGraficoPizza.destroy();
-      }
-
-      window.meuGraficoPizza = new Chart(ctx, {
+      meuGrafico = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: Object.keys(dadosGastos),
+          labels: categorias,
           datasets: [{
-            label: 'Gastos por Categoria',
-            data: Object.values(dadosGastos),
-            backgroundColor: [
-              '#00ffaa', '#00bfff', '#ff6384', '#ffcc00', '#4bc0c0', '#9966ff'
-            ],
-            borderWidth: 1
+            data: valores,
+            backgroundColor: ['#00ffaa', '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
           }]
         },
         options: {
-          responsive: true,
           plugins: {
             legend: {
-              position: 'right',
               labels: {
-                color: 'black',
-                font: {
-                  size: 14
-                }
+                color: '#000'
               }
             }
           }
         }
       });
     }
+
+    function aplicarModoEscuroAutomatico() {
+      const hora = new Date().getHours();
+      if (hora >= 18 || hora < 6) {
+        document.body.classList.add("modo-escuro");
+      }
+    }
+
+    window.onload = aplicarModoEscuroAutomatico;
   </script>
 </body>
 </html>
