@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saldo - Finora</title>
   <style>
-    body {
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      background-image: url('https://www.nordinvestimentos.com.br/cdn-cgi/imagedelivery/WVyV4OkToIxntlRloKFH7Q/wp-content/uploads/2023/05/Fundos-de-Investimento-para-voc--conhecer.jpg/format=auto,w=785,h=442');
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://www.nordinvestimentos.com.br/cdn-cgi/imagedelivery/WVyV4OkToIxntlRloKFH7Q/wp-content/uploads/2023/05/Fundos-de-Investimento-para-voc--conhecer.jpg/format=auto,w=785,h=442') no-repeat center center fixed;
       background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
       color: white;
+      display: flex;
     }
 
     .modo-escuro {
@@ -22,81 +30,68 @@
     }
 
     .menu {
-      width: 220px;
-      background-color: rgba(0, 0, 0, 0.85);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 230px;
       height: 100vh;
-      padding: 20px;
+      background-color: var(--preto);
+      padding: 30px 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     .menu h1 {
-      font-size: 24px;
-      margin-bottom: 30px;
+      color: var(--verde-neon);
+      font-size: 26px;
       text-align: center;
-      color: #00ff88;
+      margin-bottom: 40px;
     }
 
     .menu ul {
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       padding: 0;
-    }
-
-    .menu li {
-      margin-bottom: 15px;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 17px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
-      padding: 8px 12px;
+      gap: 10px;
       border-radius: 8px;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-ia {
-      background-color: #00ffaa;
-      color: black;
-      font-weight: bold;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: center;
-      margin-top: 20px;
-      transition: background-color 0.3s;
-    }
-
-    .btn-ia:hover {
-      background-color: #00dd99;
+    .menu a:hover,
+    .menu a.ativo {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--verde-neon);
     }
 
     .conteudo {
+      margin-left: 230px;
+      padding: 50px 30px;
       flex: 1;
+      min-height: 100vh;
+      background-color: rgba(0, 0, 0, 0.65);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding: 40px 20px;
-      margin: 20px;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      backdrop-filter: blur(5px);
     }
 
     .conteudo h2 {
       font-size: 32px;
       margin-bottom: 30px;
+      color: var(--verde-neon);
       text-align: center;
-      color: #00ffaa;
     }
 
     .card-saldo {
@@ -201,26 +196,25 @@
         margin: 0;
         border-radius: 0;
         height: 100vh;
+        overflow-y: auto;
       }
     }
   </style>
 </head>
 <body>
   <aside class="menu">
-    <div>
-      <h1>$ finora</h1>
-      <ul>
-        <li><a href="home.html">🏠 Início</a></li>
-        <li><a href="dicas.html">💡 Dicas</a></li>
-        <li><a href="aulas.html">📚 Aulas</a></li>
-        <li><a href="suporte.html">🛠️ Suporte</a></li>
-        <li><a href="calculadora.html">🧮 Calculadora</a></li>
-        <li><a href="saldo.html">💰 Saldo</a></li>
-        <li><a href="historico.html">📈 Histórico</a></li>
-        <li><a href="index.html">🔓 Sair</a></li>
-      </ul>
-    </div>
-    <a href="ia.html" class="btn-ia">🤖 IA Finora</a>
+    <h1>$ finora</h1>
+    <ul>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas financeiras</a></li>
+      <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
+      <li><a href="suporte.html">💬 Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html" class="ativo">💰 Meu Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="ia.html">🤖 IA Finora</a></li>
+      <li><a href="index.html">🚪 Sair</a></li>
+    </ul>
   </aside>
 
   <main class="conteudo">
