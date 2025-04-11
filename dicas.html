@@ -37,11 +37,17 @@
       flex-direction: column;
     }
 
-    .menu h1 {
-      color: var(--verde-neon);
-      font-size: 26px;
-      text-align: center;
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-bottom: 40px;
+    }
+
+    .logo-container img {
+      max-width: 140px;
+      width: 100%;
+      height: auto;
     }
 
     .menu ul {
@@ -121,7 +127,9 @@
 </head>
 <body>
   <aside class="menu">
-    <h1>$ finora</h1>
+    <a href="home.html" class="logo-container">
+      <img src="logooo.png" alt="Logo Finora">
+    </a>
     <ul>
       <li><a href="home.html">🏡 Início</a></li>
       <li><a href="dicas.html">💡 Dicas financeiras</a></li>
@@ -140,41 +148,35 @@
   <main class="conteudo">
     <h2>💡 Dicas para Mandar Bem com o Dinheiro</h2>
 
+    <!-- Dicas (iguais às suas) -->
     <div class="dica">
       <h3>1. Guarde um Pouquinho Todo Mês</h3>
       <p>Mesmo que seja pouco, guardar um valor todo mês ajuda a criar o hábito de economizar e te salva em emergências.</p>
     </div>
-
     <div class="dica">
       <h3>2. Cuidado com Compras por Impulso</h3>
       <p>Pense duas vezes antes de comprar algo. Será que você realmente precisa ou está comprando só porque está na promoção?</p>
     </div>
-
     <div class="dica">
       <h3>3. Anote o que Ganha e o que Gasta</h3>
       <p>Use um caderno, planilha ou o Finora pra saber exatamente pra onde seu dinheiro tá indo.</p>
     </div>
-
     <div class="dica">
       <h3>4. Dê Valor ao Dinheiro que Você Tem</h3>
       <p>Evite desperdícios e pense bem antes de gastar. O dinheiro pode acabar rápido se não for bem cuidado.</p>
     </div>
-
     <div class="dica">
       <h3>5. Tenha um Objetivo</h3>
       <p>Juntar dinheiro pra um sonho (tipo um celular, viagem ou futuro curso) dá mais motivação pra economizar.</p>
     </div>
-
     <div class="dica">
       <h3>6. Compare Preços Sempre</h3>
       <p>Antes de comprar, olhe em diferentes lojas. Às vezes a economia de alguns reais faz diferença no fim do mês.</p>
     </div>
-
     <div class="dica">
       <h3>7. Crie uma Mesada pra Você Mesmo</h3>
       <p>Separe um valor fixo por mês para seus gastos pessoais. Assim, você aprende a se controlar melhor.</p>
     </div>
-
     <div class="dica">
       <h3>8. Use Aplicativos de Controle</h3>
       <p>Aplicativos como o Finora te ajudam a visualizar melhor sua grana, seus gastos e seus objetivos.</p>
