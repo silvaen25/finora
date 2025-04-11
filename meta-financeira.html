@@ -18,15 +18,9 @@
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://www.nordinvestimentos.com.br/cdn-cgi/imagedelivery/WVyV4OkToIxntlRloKFH7Q/wp-content/uploads/2023/05/Fundos-de-Investimento-para-voc--conhecer.jpg/format=auto,w=785,h=442') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #000;
       color: white;
       display: flex;
-    }
-
-    .modo-escuro {
-      background-color: #121212 !important;
-      background-image: none !important;
     }
 
     .menu {
@@ -54,7 +48,6 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      padding: 0;
     }
 
     .menu a {
@@ -62,9 +55,6 @@
       text-decoration: none;
       font-size: 17px;
       padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       border-radius: 8px;
       transition: background 0.3s, color 0.3s;
     }
@@ -77,82 +67,108 @@
 
     .conteudo {
       margin-left: 230px;
-      padding: 50px 30px;
+      padding: 40px 30px;
       flex: 1;
       min-height: 100vh;
-      background-color: rgba(0, 0, 0, 0.65);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background-color: #121212;
     }
 
-    .conteudo h2 {
-      font-size: 32px;
-      margin-bottom: 30px;
+    h2 {
       color: var(--verde-neon);
+      font-size: 28px;
       text-align: center;
+      margin-bottom: 30px;
     }
 
     .form-meta {
-      background-color: #1a1a1a;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,255,136,0.2);
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
     }
 
     .form-meta input {
-      width: 80%;
-      max-width: 300px;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 6px;
       border: none;
-      font-size: 18px;
+      width: 250px;
+      font-size: 16px;
       text-align: center;
     }
 
     .form-meta button {
-      padding: 12px 20px;
-      font-size: 16px;
-      background-color: #00ffaa;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: var(--verde-neon);
+      color: #000;
       border: none;
-      border-radius: 10px;
-      cursor: pointer;
+      border-radius: 6px;
       font-weight: bold;
-      margin: 10px 5px;
+      cursor: pointer;
     }
 
-    .form-meta button:hover {
-      background-color: #00dd99;
+    .metas-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .progresso {
-      margin-top: 25px;
-      font-size: 18px;
-      color: white;
+    .meta-card {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,136,0.2);
+      position: relative;
+    }
+
+    .meta-card h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: var(--verde-neon);
     }
 
     .barra {
-      width: 100%;
-      max-width: 400px;
+      height: 20px;
       background-color: #333;
       border-radius: 10px;
       overflow: hidden;
-      height: 24px;
-      margin: 20px auto;
+      margin-top: 10px;
     }
 
     .preenchimento {
       height: 100%;
       background-color: var(--verde-neon);
-      width: 0%;
       text-align: center;
-      color: black;
       font-weight: bold;
+      color: black;
+    }
+
+    .acoes {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .acoes button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .editar {
+      background-color: #ffaa00;
+      color: black;
+    }
+
+    .excluir {
+      background-color: #ff4444;
+      color: white;
     }
 
     @media (max-width: 768px) {
@@ -162,9 +178,6 @@
 
       .conteudo {
         margin: 0;
-        border-radius: 0;
-        height: 100vh;
-        overflow-y: auto;
       }
     }
   </style>
@@ -182,75 +195,99 @@
       <li><a href="historico.html">📈 Histórico</a></li>
       <li><a href="ia.html">🤖 IA Finora</a></li>
       <li><a href="gastos.html">🥧 Seus Gastos</a></li>
-      <li><a href="meta-financeira.html">🎯 Meta Financeira</a></li>
+      <li><a class="ativo" href="meta-financeira.html">🎯 Meta Financeira</a></li>
       <li><a href="index.html">🚪 Sair</a></li>
     </ul>
   </aside>
 
   <main class="conteudo">
-    <h2>🎯 Meta Financeira</h2>
-    <div class="form-meta">
-      <input type="number" id="meta" placeholder="Defina sua meta (R$)" />
-      <input type="number" id="atual" placeholder="Quanto você já tem (R$)" />
-      <br />
-      <button onclick="atualizarProgresso()">Atualizar</button>
-      <button onclick="resetarMeta()">Resetar</button>
+    <h2>🎯 Metas Financeiras</h2>
 
-      <div class="progresso">
-        Progresso:
-        <div class="barra"><div id="preenchimento" class="preenchimento">0%</div></div>
-      </div>
+    <div class="form-meta">
+      <input type="text" id="nomeMeta" placeholder="Nome da meta (ex: Novo celular)">
+      <input type="number" id="valorTotal" placeholder="Valor desejado (R$)">
+      <input type="number" id="valorAtual" placeholder="Valor que já tem (R$)">
+      <button onclick="adicionarMeta()">+ Adicionar Meta</button>
     </div>
+
+    <div id="metas" class="metas-container"></div>
   </main>
 
   <script>
-    function atualizarProgresso() {
-      const meta = parseFloat(document.getElementById("meta").value);
-      const atual = parseFloat(document.getElementById("atual").value);
-      if (isNaN(meta) || isNaN(atual) || meta <= 0) return;
+    let metas = JSON.parse(localStorage.getItem("metas")) || [];
 
-      localStorage.setItem("metaFinanceira", meta);
-      localStorage.setItem("valorAtualMeta", atual);
-
-      const porcentagem = Math.min((atual / meta) * 100, 100);
-      const preenchimento = document.getElementById("preenchimento");
-      preenchimento.style.width = porcentagem + "%";
-      preenchimento.innerText = porcentagem.toFixed(0) + "%";
+    function salvarMetas() {
+      localStorage.setItem("metas", JSON.stringify(metas));
     }
 
-    function resetarMeta() {
-      localStorage.removeItem("metaFinanceira");
-      localStorage.removeItem("valorAtualMeta");
+    function renderizarMetas() {
+      const container = document.getElementById("metas");
+      container.innerHTML = "";
 
-      document.getElementById("meta").value = "";
-      document.getElementById("atual").value = "";
+      metas.forEach((meta, index) => {
+        const porcentagem = Math.min((meta.atual / meta.total) * 100, 100).toFixed(0);
 
-      const preenchimento = document.getElementById("preenchimento");
-      preenchimento.style.width = "0%";
-      preenchimento.innerText = "0%";
+        const card = document.createElement("div");
+        card.className = "meta-card";
+        card.innerHTML = `
+          <h3>${meta.nome}</h3>
+          <p>${porcentagem}% - R$${meta.atual.toFixed(2)} de R$${meta.total.toFixed(2)}</p>
+          <div class="barra">
+            <div class="preenchimento" style="width: ${porcentagem}%;">${porcentagem}%</div>
+          </div>
+          <div class="acoes">
+            <button class="editar" onclick="editarMeta(${index})">Editar</button>
+            <button class="excluir" onclick="excluirMeta(${index})">Excluir</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
-    function carregarMetaSalva() {
-      const meta = parseFloat(localStorage.getItem("metaFinanceira")) || 0;
-      const atual = parseFloat(localStorage.getItem("valorAtualMeta")) || 0;
-      if (meta && atual) {
-        document.getElementById("meta").value = meta;
-        document.getElementById("atual").value = atual;
-        atualizarProgresso();
+    function adicionarMeta() {
+      const nome = document.getElementById("nomeMeta").value.trim();
+      const total = parseFloat(document.getElementById("valorTotal").value);
+      const atual = parseFloat(document.getElementById("valorAtual").value);
+
+      if (!nome || isNaN(total) || isNaN(atual) || total <= 0 || atual < 0) {
+        alert("Preencha todos os campos corretamente.");
+        return;
+      }
+
+      metas.push({ nome, total, atual });
+      salvarMetas();
+      renderizarMetas();
+
+      document.getElementById("nomeMeta").value = "";
+      document.getElementById("valorTotal").value = "";
+      document.getElementById("valorAtual").value = "";
+    }
+
+    function excluirMeta(index) {
+      if (confirm("Deseja excluir esta meta?")) {
+        metas.splice(index, 1);
+        salvarMetas();
+        renderizarMetas();
       }
     }
 
-    function aplicarModoEscuroAutomatico() {
-      const hora = new Date().getHours();
-      if (hora >= 18 || hora < 6) {
-        document.body.classList.add("modo-escuro");
+    function editarMeta(index) {
+      const meta = metas[index];
+      const novoNome = prompt("Novo nome da meta:", meta.nome);
+      const novoTotal = parseFloat(prompt("Novo valor total:", meta.total));
+      const novoAtual = parseFloat(prompt("Novo valor atual:", meta.atual));
+
+      if (!novoNome || isNaN(novoTotal) || isNaN(novoAtual)) {
+        alert("Valores inválidos!");
+        return;
       }
+
+      metas[index] = { nome: novoNome, total: novoTotal, atual: novoAtual };
+      salvarMetas();
+      renderizarMetas();
     }
 
-    window.onload = () => {
-      carregarMetaSalva();
-      aplicarModoEscuroAutomatico();
-    };
+    renderizarMetas();
   </script>
 </body>
 </html>
