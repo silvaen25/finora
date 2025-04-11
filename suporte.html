@@ -36,11 +36,13 @@
       flex-direction: column;
     }
 
-    .menu h1 {
-      color: var(--verde-neon);
-      font-size: 26px;
+    .menu .logo {
       text-align: center;
       margin-bottom: 40px;
+    }
+
+    .menu .logo img {
+      max-width: 160px;
     }
 
     .menu ul {
@@ -110,12 +112,14 @@
 </head>
 <body>
   <aside class="menu">
-    <h1>$ finora</h1>
+    <div class="logo">
+      <img src="logooo.png" alt="Logo Finora">
+    </div>
     <ul>
       <li><a href="home.html">🏡 Início</a></li>
       <li><a href="dicas.html">💡 Dicas financeiras</a></li>
       <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
-      <li><a href="suporte.html">💬 Suporte</a></li>
+      <li><a href="suporte.html" class="ativo">💬 Suporte</a></li>
       <li><a href="calculadora.html">🧮 Calculadora</a></li>
       <li><a href="saldo.html">💰 Meu Saldo</a></li>
       <li><a href="historico.html">📈 Histórico</a></li>
