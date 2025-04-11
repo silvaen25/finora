@@ -60,7 +60,7 @@ body {
   color: var(--verde-escuro);
 }
 
-/* Conteúdo principal */
+/* ConteÃºdo principal */
 .conteudo {
   margin-left: 220px;
   padding: 20px;
@@ -74,7 +74,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Inputs e botões */
+/* Inputs e botÃµes */
 input[type="text"],
 input[type="number"] {
   padding: 10px;
