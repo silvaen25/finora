@@ -1,194 +1,116 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Seus Gastos - Finora</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root {
-      --verde-neon: #00ff88;
-      --preto: #1e1e1e;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: 'Segoe UI', sans-serif;
-      position: relative;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    #fundo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://media.istockphoto.com/id/1368169112/pt/vetorial/money-green-seamless-pattern-vector-background-included-line-icons-as-piggy-bank-wallet.jpg?s=612x612&w=0&k=20&c=YJzXY1bF8tyR7MxEJAE3PfxOtN-7SIMBNZgNu71AUKA=');
-      background-size: cover;
-      background-position: center;
-      z-index: -2;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: -1;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .modo-escuro .overlay {
-      opacity: 1;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      background-color: #f4f4f4;
     }
 
     .menu {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 230px;
+      background-color: #222;
+      color: white;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      z-index: 1;
+      position: fixed;
+      padding-top: 20px;
     }
 
-    .menu h1 {
-      color: var(--verde-neon);
-      font-size: 26px;
+    .menu .logo {
       text-align: center;
       margin-bottom: 40px;
     }
 
+    .menu .logo img {
+      max-width: 160px;
+    }
+
     .menu ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      list-style-type: none;
       padding: 0;
+    }
+
+    .menu li {
+      margin: 10px 0;
     }
 
     .menu a {
       color: white;
       text-decoration: none;
-      font-size: 17px;
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 8px;
-      transition: background 0.3s, color 0.3s;
+      display: block;
+      padding: 10px 20px;
     }
 
-    .menu a:hover,
-    .menu a.ativo {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: var(--verde-neon);
+    .menu a.ativo,
+    .menu a:hover {
+      background-color: #444;
     }
 
     .conteudo {
       margin-left: 230px;
-      padding: 50px 30px;
-      flex: 1;
-      min-height: 100vh;
-      background-color: rgba(0, 0, 0, 0.65);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 1;
+      padding: 40px;
+      flex-grow: 1;
     }
 
-    .conteudo h2 {
-      font-size: 32px;
-      margin-bottom: 30px;
-      color: var(--verde-neon);
-      text-align: center;
+    h2 {
+      margin-top: 0;
     }
 
-    .formulario {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .formulario input {
-      font-size: 16px;
-      padding: 10px;
-      width: 250px;
-      border-radius: 10px;
-      border: none;
-      text-align: center;
-      background-color: #333;
-      color: white;
-    }
-
-    .formulario button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #00ffaa;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-
-    .formulario button:hover {
-      background-color: #00dd99;
-    }
-
-    .formulario button:nth-child(4) {
-      background-color: crimson;
-      color: white;
-    }
-
-    .grafico-container {
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      padding: 20px;
-      max-width: 400px;
+    #grafico-container {
       width: 100%;
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-      margin-bottom: 20px;
+      max-width: 500px;
+      margin-bottom: 30px;
     }
 
-    @media (max-width: 768px) {
-      .menu {
-        display: none;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: white;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
 
-      .conteudo {
-        margin: 0;
-        border-radius: 0;
-        height: 100vh;
-        overflow-y: auto;
-      }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 8px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #222;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    .botoes {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div id="fundo"></div>
-  <div class="overlay"></div>
 
   <aside class="menu">
-    <h1>$ finora</h1>
+    <div class="logo">
+      <img src="logooo.png" alt="Logo Finora">
+    </div>
     <ul>
       <li><a href="home.html">🏡 Início</a></li>
       <li><a href="dicas.html">💡 Dicas financeiras</a></li>
@@ -205,89 +127,122 @@
   </aside>
 
   <main class="conteudo">
-    <h2>📊 Seus Gastos</h2>
+    <h2>Seus Gastos por Categoria</h2>
 
-    <div class="formulario">
-      <input type="text" id="categoria" placeholder="Categoria (ex: Alimentação)" />
-      <input type="number" id="valor" placeholder="Valor (ex: 50.00)" />
-      <button onclick="adicionarGasto()">Adicionar Gasto</button>
-      <button onclick="limparGrafico()">🗑️ Limpar Tudo</button>
+    <div id="grafico-container">
+      <canvas id="graficoGastos"></canvas>
     </div>
 
-    <div class="grafico-container">
-      <canvas id="grafico"></canvas>
+    <form id="form-gasto">
+      <input type="text" id="categoria" placeholder="Categoria" required />
+      <input type="number" id="valor" placeholder="Valor (R$)" required />
+      <button type="submit">Adicionar Gasto</button>
+    </form>
+
+    <table id="tabelaGastos">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th>Valor (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Conteúdo dinâmico -->
+      </tbody>
+    </table>
+
+    <div class="botoes">
+      <button onclick="limparGastos()">Limpar Dados</button>
     </div>
   </main>
 
   <script>
-    let categorias = JSON.parse(localStorage.getItem("gastosCategorias")) || [];
-    let valores = JSON.parse(localStorage.getItem("gastosValores")) || [];
-    let meuGrafico;
+    const ctx = document.getElementById('graficoGastos').getContext('2d');
+    let grafico;
 
-    function atualizarGrafico() {
-      const ctx = document.getElementById("grafico").getContext("2d");
-      if (meuGrafico) meuGrafico.destroy();
+    function carregarGastos() {
+      const dados = JSON.parse(localStorage.getItem('gastos')) || [];
+      return dados;
+    }
 
-      meuGrafico = new Chart(ctx, {
+    function salvarGastos(dados) {
+      localStorage.setItem('gastos', JSON.stringify(dados));
+    }
+
+    function atualizarTabelaEGrafico() {
+      const dados = carregarGastos();
+      const tbody = document.querySelector('#tabelaGastos tbody');
+      tbody.innerHTML = '';
+
+      const categorias = {};
+      dados.forEach(item => {
+        const { categoria, valor } = item;
+        if (categorias[categoria]) {
+          categorias[categoria] += valor;
+        } else {
+          categorias[categoria] = valor;
+        }
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${categoria}</td><td>R$ ${valor.toFixed(2)}</td>`;
+        tbody.appendChild(row);
+      });
+
+      const labels = Object.keys(categorias);
+      const valores = Object.values(categorias);
+
+      if (grafico) {
+        grafico.destroy();
+      }
+
+      grafico = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: categorias,
+          labels: labels,
           datasets: [{
+            label: 'Gastos por Categoria',
             data: valores,
             backgroundColor: [
-              '#00ffaa', '#ff6384', '#36a2eb', '#ffce56',
-              '#4bc0c0', '#9966ff', '#ff9f40', '#00cc99'
-            ],
+              '#FF6384',
+              '#36A2EB',
+              '#FFCE56',
+              '#8e44ad',
+              '#2ecc71',
+              '#e67e22',
+              '#f1c40f',
+              '#1abc9c'
+            ]
           }]
         },
         options: {
-          plugins: {
-            legend: {
-              labels: { color: '#fff' }
-            }
-          }
+          responsive: true
         }
       });
     }
 
-    function adicionarGasto() {
-      const categoria = document.getElementById("categoria").value.trim();
-      const valor = parseFloat(document.getElementById("valor").value);
+    document.getElementById('form-gasto').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const categoria = document.getElementById('categoria').value.trim();
+      const valor = parseFloat(document.getElementById('valor').value);
 
-      if (!categoria || isNaN(valor)) return;
+      if (!categoria || isNaN(valor) || valor <= 0) return;
 
-      categorias.push(categoria);
-      valores.push(valor);
-      salvarDados();
-      atualizarGrafico();
+      const dados = carregarGastos();
+      dados.push({ categoria, valor });
+      salvarGastos(dados);
+      atualizarTabelaEGrafico();
 
-      document.getElementById("categoria").value = "";
-      document.getElementById("valor").value = "";
-    }
+      document.getElementById('form-gasto').reset();
+    });
 
-    function limparGrafico() {
-      categorias = [];
-      valores = [];
-      salvarDados();
-      atualizarGrafico();
-    }
-
-    function salvarDados() {
-      localStorage.setItem("gastosCategorias", JSON.stringify(categorias));
-      localStorage.setItem("gastosValores", JSON.stringify(valores));
-    }
-
-    function aplicarModoEscuroAutomatico() {
-      const hora = new Date().getHours();
-      if (hora >= 18 || hora < 6) {
-        document.body.classList.add("modo-escuro");
+    function limparGastos() {
+      if (confirm('Tem certeza que deseja apagar todos os dados de gastos?')) {
+        localStorage.removeItem('gastos');
+        atualizarTabelaEGrafico();
       }
     }
 
-    window.onload = () => {
-      aplicarModoEscuroAutomatico();
-      atualizarGrafico();
-    };
+    atualizarTabelaEGrafico();
   </script>
+
 </body>
 </html>
