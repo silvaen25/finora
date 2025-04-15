@@ -52,7 +52,7 @@
 
     .input-container {
       position: relative;
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
     }
 
     .input-container input {
@@ -70,12 +70,19 @@
     }
 
     .input-container::before {
-      content: "👤";
       position: absolute;
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
       font-size: 1.1rem;
+    }
+
+    .input-container.usuario::before {
+      content: "👤";
+    }
+
+    .input-container.senha::before {
+      content: "🔒";
     }
 
     .login-box button {
@@ -102,28 +109,55 @@
       font-size: 0.8rem;
       color: #aaa;
     }
+
+    .link {
+      margin-top: 1rem;
+      display: block;
+      font-size: 0.9rem;
+      color: #167c35;
+      cursor: pointer;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="login-box">
-    <h2>🌟 Bem-vindo ao Finora</h2>
-    <p>Digite seu nome para começar sua jornada financeira!</p>
-    <div class="input-container">
-      <input type="text" id="username" placeholder="Seu nome" />
+    <h2>🌟 Login Finora</h2>
+    <p>Acesse sua conta financeira</p>
+
+    <div class="input-container usuario">
+      <input type="text" id="usuario" placeholder="Usuário" />
     </div>
+    <div class="input-container senha">
+      <input type="password" id="senha" placeholder="Senha" />
+    </div>
+
     <button onclick="login()">Entrar</button>
+    <span class="link" onclick="window.location.href='cadastro.html'">Criar conta</span>
+
     <div class="footer">💸 Educação Financeira Jovem</div>
   </div>
 
   <script>
     function login() {
-      const name = document.getElementById("username").value.trim();
-      if (name) {
-        localStorage.setItem("finora_username", name);
-        window.location.href = "home.html";
-      } else {
-        alert("Por favor, insira um nome.");
+      const usuario = document.getElementById("usuario").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+
+      const usuarioSalvo = localStorage.getItem(`user_${usuario}`);
+      if (!usuarioSalvo) {
+        alert("Usuário não encontrado.");
+        return;
       }
+
+      const dados = JSON.parse(usuarioSalvo);
+      if (dados.senha !== senha) {
+        alert("Senha incorreta.");
+        return;
+      }
+
+      localStorage.setItem("finora_username", dados.nome); // nome completo
+      localStorage.setItem("finora_user", usuario); // username
+      window.location.href = "home.html";
     }
   </script>
 </body>
