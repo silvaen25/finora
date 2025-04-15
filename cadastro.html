@@ -133,16 +133,16 @@
       <input type="text" id="nome" placeholder="Seu nome completo" />
     </div>
     <div class="input-container usuario">
-      <input type="text" id="usuario" placeholder="Nome de usu·rio" />
+      <input type="text" id="usuario" placeholder="Nome de usu√°rio" />
     </div>
     <div class="input-container senha">
       <input type="password" id="senha" placeholder="Senha" />
     </div>
 
     <button onclick="cadastrar()">Cadastrar</button>
-    <span class="link" onclick="window.location.href='login.html'">J· tem conta? Entrar</span>
+    <span class="link" onclick="window.location.href='login.html'">J√° tem conta? Entrar</span>
 
-    <div class="footer">?? EducaÁ„o Financeira Jovem</div>
+    <div class="footer">?? Educa√ß√£o Financeira Jovem</div>
   </div>
 
   <script>
@@ -157,7 +157,7 @@
       }
 
       if (localStorage.getItem(`user_${usuario}`)) {
-        alert("Usu·rio j· existe. Escolha outro.");
+        alert("Usu√°rio j√° existe. Escolha outro.");
         return;
       }
 
@@ -167,8 +167,8 @@
       };
 
       localStorage.setItem(`user_${usuario}`, JSON.stringify(dados));
-      alert("Conta criada com sucesso! FaÁa login.");
-      window.location.href = "login.html";
+      alert("Conta criada com sucesso! Fa√ßa login.");
+      window.location.href = "index.html";
     }
   </script>
 </body>
