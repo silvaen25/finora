@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finora - Cadastro</title>
+  <style>
+    :root {
+      --verde-principal: #00ff88;
+      --verde-escuro: #167c35;
+      --fundo: linear-gradient(145deg, #0e1e1e, #1f2f2f);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--fundo);
+    }
+
+    .login-box {
+      background: white;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 340px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+
+    .login-box:hover {
+      transform: scale(1.02);
+    }
+
+    .login-box h2 {
+      margin-bottom: 0.5rem;
+      color: #1e1e1e;
+    }
+
+    .login-box p {
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .input-container {
+      position: relative;
+      margin-top: 1.2rem;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-container input:focus {
+      border-color: var(--verde-principal);
+    }
+
+    .input-container::before {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+    }
+
+    .input-container.nome::before {
+      content: "??";
+    }
+
+    .input-container.usuario::before {
+      content: "??";
+    }
+
+    .input-container.senha::before {
+      content: "??";
+    }
+
+    .login-box button {
+      margin-top: 1.5rem;
+      padding: 0.8rem;
+      background-color: var(--verde-principal);
+      color: black;
+      border: none;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+
+    .login-box button:hover {
+      background-color: #00e07a;
+      transform: scale(1.03);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .link {
+      margin-top: 1rem;
+      display: block;
+      font-size: 0.9rem;
+      color: #167c35;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>?? Criar Conta</h2>
+    <p>Preencha os dados para se cadastrar no Finora</p>
+
+    <div class="input-container nome">
+      <input type="text" id="nome" placeholder="Seu nome completo" />
+    </div>
+    <div class="input-container usuario">
+      <input type="text" id="usuario" placeholder="Nome de usuário" />
+    </div>
+    <div class="input-container senha">
+      <input type="password" id="senha" placeholder="Senha" />
+    </div>
+
+    <button onclick="cadastrar()">Cadastrar</button>
+    <span class="link" onclick="window.location.href='login.html'">Já tem conta? Entrar</span>
+
+    <div class="footer">?? Educação Financeira Jovem</div>
+  </div>
+
+  <script>
+    function cadastrar() {
+      const nome = document.getElementById("nome").value.trim();
+      const usuario = document.getElementById("usuario").value.trim();
+      const senha = document.getElementById("senha").value;
+
+      if (!nome || !usuario || !senha) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
+
+      if (localStorage.getItem(`user_${usuario}`)) {
+        alert("Usuário já existe. Escolha outro.");
+        return;
+      }
+
+      const dados = {
+        nome,
+        senha
+      };
+
+      localStorage.setItem(`user_${usuario}`, JSON.stringify(dados));
+      alert("Conta criada com sucesso! Faça login.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
