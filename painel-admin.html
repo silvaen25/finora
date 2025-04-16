@@ -12,127 +12,227 @@
       margin: 0;
       padding: 2rem;
     }
-
-    h1 {
-      color: #00ff88;
-      margin-bottom: 1.5rem;
+    h1, h2 {
       text-align: center;
+      color: #00ff88;
     }
-
+    .warning {
+      background-color: rgba(255, 255, 0, 0.2);
+      border: 1px solid rgba(255, 255, 0, 0.6);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      color: #ffea00;
+    }
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
+    }
+    .section {
       background: #ffffff11;
       border-radius: 10px;
-      padding: 1.5rem;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
       box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
-
-    .local-item {
+    .section-header {
+      border-bottom: 1px solid #ffffff22;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.3rem;
+    }
+    .item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem;
+      padding: 0.5rem 0;
       border-bottom: 1px solid #ffffff22;
     }
-
-    .local-item:last-child {
+    .item:last-child {
       border-bottom: none;
     }
-
-    .key-value {
+    .item span {
       word-break: break-all;
       flex: 1;
       margin-right: 1rem;
     }
-
-    button {
+    .item button {
       background: #ff5c5c;
       color: white;
       border: none;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
     }
-
-    button:hover {
+    .item button:hover {
       background: #ff2e2e;
     }
-
     .clear-all {
       background: #ff5c5c;
       margin-top: 1.5rem;
       width: 100%;
       padding: 0.8rem;
       border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
     }
-
+    .clear-all:hover {
+      background: #ff2e2e;
+    }
     .small {
       font-size: 0.85rem;
       color: #aaa;
+      text-align: center;
       margin-top: 1rem;
     }
   </style>
 </head>
 <body>
   <h1>📊 Painel Admin - Finora</h1>
+
   <div class="container">
-    <h2>Dados salvos no localStorage</h2>
-    <div id="dataList">
-      <!-- Os dados serão listados aqui -->
+    <div class="warning">
+      <p>
+        ATENÇÃO: Ao apagar uma conta, essa ação é definitiva! Você não conseguirá mais acessá-la e terá de criar uma nova conta para usar o sistema.
+      </p>
     </div>
+
+    <!-- Seção de Contas de Usuário -->
+    <div class="section">
+      <h2 class="section-header">Contas de Usuário</h2>
+      <div id="accountsList">
+        <!-- Lista de contas será gerada aqui -->
+      </div>
+    </div>
+
+    <!-- Seção de Dados Financeiros -->
+    <div class="section">
+      <h2 class="section-header">Dados Financeiros</h2>
+      <div id="financeList">
+        <!-- Lista dos dados financeiros será gerada aqui -->
+      </div>
+    </div>
+
+    <!-- Seção de Outros Dados -->
+    <div class="section">
+      <h2 class="section-header">Outros Dados</h2>
+      <div id="othersList">
+        <!-- Lista dos demais dados será gerada aqui -->
+      </div>
+    </div>
+
     <button class="clear-all" onclick="clearAll()">🗑️ Apagar TODOS os dados</button>
     <p class="small">* Essa ação apagará todos os dados salvos no navegador.</p>
   </div>
 
   <script>
-    // Função para atualizar a lista de dados
-    function updateDataList() {
-      const dataList = document.getElementById('dataList');
-      dataList.innerHTML = '';  // Limpa a lista
-      if(localStorage.length === 0) {
-        dataList.textContent = 'Nenhum dado salvo no localStorage.';
-        return;
+    // Função de categorização de dados
+    function categorizeKey(key) {
+      const k = key.toLowerCase();
+      // Critério para contas
+      if (k.includes("conta") || k.includes("user") || k.includes("usuario")) {
+        return 'conta';
       }
-
-      // Itera sobre cada chave do localStorage e cria um item de lista
-      Object.keys(localStorage).forEach(key => {
-        const value = localStorage.getItem(key);
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'local-item';
-
-        const keyValueDiv = document.createElement('div');
-        keyValueDiv.className = 'key-value';
-        keyValueDiv.textContent = key + ': ' + value;
-
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Apagar';
-        deleteButton.onclick = () => {
-          if(confirm(`Deseja realmente apagar a chave "${key}"?`)) {
-            localStorage.removeItem(key);
-            updateDataList();
-          }
-        };
-
-        itemDiv.appendChild(keyValueDiv);
-        itemDiv.appendChild(deleteButton);
-        dataList.appendChild(itemDiv);
-      });
+      // Critério para dados financeiros
+      if (k.includes("saldo") || k.includes("transacao") || k.includes("meta") || k.includes("fin")) {
+        return 'financeiro';
+      }
+      // Se não se enquadrar em nenhum, será "outros"
+      return 'outros';
     }
 
-    // Função para apagar todos os dados
+    // Função para criar um elemento de item para a lista
+    function criarItem(key, value, categoria) {
+      const item = document.createElement('div');
+      item.className = 'item';
+
+      const span = document.createElement('span');
+      span.textContent = key + ': ' + value;
+
+      const button = document.createElement('button');
+
+      // Diferentes mensagens para conta e outras categorias
+      if (categoria === 'conta') {
+        button.textContent = 'Apagar Conta';
+        button.onclick = () => {
+          if (confirm(`Deseja realmente apagar a conta "${key}"?\nEsta ação é definitiva e você não conseguirá mais acessá-la. Será necessário criar uma nova conta para acessar o sistema.`)) {
+            localStorage.removeItem(key);
+            atualizarListas();
+            alert(`A conta "${key}" foi apagada. Para acessá-la novamente, crie uma nova conta.`);
+          }
+        };
+      } else {
+        button.textContent = 'Apagar';
+        button.onclick = () => {
+          if (confirm(`Deseja realmente apagar a chave "${key}"?`)) {
+            localStorage.removeItem(key);
+            atualizarListas();
+          }
+        };
+      }
+
+      item.appendChild(span);
+      item.appendChild(button);
+      return item;
+    }
+
+    // Função para atualizar as listas agrupadas por categoria
+    function atualizarListas() {
+      const accountsContainer = document.getElementById('accountsList');
+      const financeContainer = document.getElementById('financeList');
+      const othersContainer = document.getElementById('othersList');
+
+      accountsContainer.innerHTML = '';
+      financeContainer.innerHTML = '';
+      othersContainer.innerHTML = '';
+
+      const keys = Object.keys(localStorage);
+      if (keys.length === 0) {
+        accountsContainer.textContent = 'Nenhuma conta cadastrada.';
+        financeContainer.textContent = 'Nenhum dado financeiro salvo.';
+        othersContainer.textContent = 'Nenhum outro dado salvo.';
+      } else {
+        keys.forEach(key => {
+          const value = localStorage.getItem(key);
+          const categoria = categorizeKey(key);
+          const item = criarItem(key, value, categoria);
+          if (categoria === 'conta') {
+            accountsContainer.appendChild(item);
+          } else if (categoria === 'financeiro') {
+            financeContainer.appendChild(item);
+          } else {
+            othersContainer.appendChild(item);
+          }
+        });
+        // Exibe mensagem se a seção estiver vazia
+        if (accountsContainer.childElementCount === 0) {
+          accountsContainer.textContent = 'Nenhuma conta cadastrada.';
+        }
+        if (financeContainer.childElementCount === 0) {
+          financeContainer.textContent = 'Nenhum dado financeiro salvo.';
+        }
+        if (othersContainer.childElementCount === 0) {
+          othersContainer.textContent = 'Nenhum outro dado salvo.';
+        }
+      }
+    }
+
+    // Função para apagar todos os dados do localStorage
     function clearAll() {
-      if(confirm('Tem certeza que deseja apagar TODOS os dados locais?')) {
+      if (confirm('Tem certeza que deseja apagar TODOS os dados locais?')) {
         localStorage.clear();
-        updateDataList();
+        atualizarListas();
         alert('Todos os dados foram apagados.');
       }
     }
 
-    // Atualiza a lista ao carregar a página
-    updateDataList();
+    // Atualiza as listas ao carregar a página
+    atualizarListas();
   </script>
 </body>
 </html>
