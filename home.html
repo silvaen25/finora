@@ -85,7 +85,6 @@
       justify-content: center;
       min-height: 100vh;
       text-align: center;
-      animation: fadeIn 1s ease;
     }
 
     .conteudo h1 {
@@ -110,11 +109,6 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
       max-width: 90%;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes flutuar {
@@ -160,25 +154,8 @@
   </main>
 
   <script>
-    const usuario = localStorage.getItem("finora_username");
-
-    if (usuario) {
-      const dadosUsuario = localStorage.getItem(`user_${usuario}`);
-      if (dadosUsuario) {
-        try {
-          const dados = JSON.parse(dadosUsuario);
-          const nomeCompleto = dados.nome || usuario;
-          document.getElementById("bemvindo").innerText = `👋 Olá, ${nomeCompleto}!`;
-        } catch (e) {
-          console.error("Erro ao processar dados do usuário:", e);
-          document.getElementById("bemvindo").innerText = `👋 Olá, ${usuario}!`;
-        }
-      } else {
-        document.getElementById("bemvindo").innerText = `👋 Olá, ${usuario}!`;
-      }
-    } else {
-      document.getElementById("bemvindo").innerText = `👋 Olá, visitante!`;
-    }
+    const nomeCompleto = localStorage.getItem("finora_nome") || "Usuário";
+    document.getElementById("bemvindo").innerText = `👋 Olá, ${nomeCompleto}!`;
 
     const saldo = localStorage.getItem("saldoFinora");
     if (saldo !== null) {
