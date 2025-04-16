@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Finora - Login</title>
   <style>
     :root {
@@ -33,6 +33,11 @@
       width: 90%;
       max-width: 340px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+
+    .login-box:hover {
+      transform: scale(1.02);
     }
 
     .login-box h2 {
@@ -57,6 +62,11 @@
       border: 1px solid #ccc;
       border-radius: 10px;
       outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-container input:focus {
+      border-color: var(--verde-principal);
     }
 
     .input-container::before {
@@ -86,6 +96,18 @@
       border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+
+    .login-box button:hover {
+      background-color: #00e07a;
+      transform: scale(1.03);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #aaa;
     }
 
     .link {
@@ -96,49 +118,48 @@
       cursor: pointer;
       text-decoration: underline;
     }
-
-    .footer {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #aaa;
-    }
   </style>
 </head>
 <body>
   <div class="login-box">
-    <h2>🔒 Entrar no Finora</h2>
+    <h2>🔐 Entrar no Finora</h2>
+    <p>Digite suas credenciais para acessar</p>
+
     <div class="input-container usuario">
       <input type="text" id="usuario" placeholder="Nome de usuário" />
     </div>
     <div class="input-container senha">
       <input type="password" id="senha" placeholder="Senha" />
     </div>
-    <button onclick="entrar()">Entrar</button>
+
+    <button onclick="login()">Entrar</button>
     <a class="link" href="cadastro.html">Criar conta</a>
+
     <div class="footer">💸 Educação Financeira Jovem</div>
   </div>
 
   <script>
-    function entrar() {
+    function login() {
       const usuario = document.getElementById("usuario").value.trim();
       const senha = document.getElementById("senha").value;
 
-      const dados = localStorage.getItem(`user_${usuario}`);
-
-      if (!dados) {
+      const dadosSalvos = localStorage.getItem(`user_${usuario}`);
+      if (!dadosSalvos) {
         alert("Usuário não encontrado.");
         return;
       }
 
-      const user = JSON.parse(dados);
-
-      if (user.senha !== senha) {
+      const dados = JSON.parse(dadosSalvos);
+      if (dados.senha !== senha) {
         alert("Senha incorreta.");
         return;
       }
 
-      localStorage.setItem("usuarioLogado", usuario);
-      window.location.href = "home.html"; // Redireciona direto sem alert
+      localStorage.setItem("finora_username", usuario);
+      localStorage.setItem("finora_nome", dados.nome); // salva o nome real
+
+      alert("Login realizado com sucesso!");
+      window.location.href = "home.html";
     }
   </script>
 </body>
