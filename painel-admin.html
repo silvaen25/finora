@@ -98,7 +98,7 @@
   <div class="container">
     <div class="warning">
       <p>
-        ATENÇÃO: Ao apagar uma conta, essa ação é definitiva! Você não conseguirá mais acessá-la e terá de criar uma nova conta para usar o sistema.
+        ATENÇÃO: Ao apagar uma conta, essa ação é definitiva! A conta não funcionará mais e será necessário criar uma nova conta para acessar o sistema.
       </p>
     </div>
 
@@ -156,16 +156,32 @@
 
       const button = document.createElement('button');
 
-      // Diferentes mensagens para conta e outras categorias
+      // Para a categoria de contas
       if (categoria === 'conta') {
-        button.textContent = 'Apagar Conta';
-        button.onclick = () => {
-          if (confirm(`Deseja realmente apagar a conta "${key}"?\nEsta ação é definitiva e você não conseguirá mais acessá-la. Será necessário criar uma nova conta para acessar o sistema.`)) {
-            localStorage.removeItem(key);
-            atualizarListas();
-            alert(`A conta "${key}" foi apagada. Para acessá-la novamente, crie uma nova conta.`);
-          }
-        };
+        if (key === 'admin') { // Se for a conta admin
+          button.textContent = 'Apagar Admin';
+          button.onclick = () => {
+            const senhaAdmin = prompt('Digite a senha para apagar a conta ADMIN:');
+            if (senhaAdmin !== 'nemias') {
+              alert('Senha incorreta. A conta ADMIN não será apagada.');
+              return;
+            }
+            if (confirm(`Deseja realmente apagar a conta ADMIN "${key}"?\nEsta ação é definitiva e você não conseguirá mais acessá-la. Será necessário criar uma nova conta para acessar o sistema.`)) {
+              localStorage.removeItem(key);
+              atualizarListas();
+              alert(`A conta ADMIN "${key}" foi apagada. Para acessá-la novamente, crie uma nova conta.`);
+            }
+          };
+        } else {
+          button.textContent = 'Apagar Conta';
+          button.onclick = () => {
+            if (confirm(`Deseja realmente apagar a conta "${key}"?\nEsta ação é definitiva e você não conseguirá mais acessá-la. Será necessário criar uma nova conta para acessar o sistema.`)) {
+              localStorage.removeItem(key);
+              atualizarListas();
+              alert(`A conta "${key}" foi apagada. Para acessá-la novamente, crie uma nova conta.`);
+            }
+          };
+        }
       } else {
         button.textContent = 'Apagar';
         button.onclick = () => {
