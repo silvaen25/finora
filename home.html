@@ -160,8 +160,25 @@
   </main>
 
   <script>
-    const nome = localStorage.getItem("finora_username") || "usuário";
-    document.getElementById("bemvindo").innerText = `👋 Olá, ${nome}!`;
+    const usuario = localStorage.getItem("finora_username");
+
+    if (usuario) {
+      const dadosUsuario = localStorage.getItem(`user_${usuario}`);
+      if (dadosUsuario) {
+        try {
+          const dados = JSON.parse(dadosUsuario);
+          const nomeCompleto = dados.nome || usuario;
+          document.getElementById("bemvindo").innerText = `👋 Olá, ${nomeCompleto}!`;
+        } catch (e) {
+          console.error("Erro ao processar dados do usuário:", e);
+          document.getElementById("bemvindo").innerText = `👋 Olá, ${usuario}!`;
+        }
+      } else {
+        document.getElementById("bemvindo").innerText = `👋 Olá, ${usuario}!`;
+      }
+    } else {
+      document.getElementById("bemvindo").innerText = `👋 Olá, visitante!`;
+    }
 
     const saldo = localStorage.getItem("saldoFinora");
     if (saldo !== null) {
