@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Finora - Início</title>
+
+  <!-- 🔐 BLOQUEIO DE ACESSO -->
+  <script>
+    const usuarioLogado = localStorage.getItem("finora_username");
+    if (!usuarioLogado) {
+      window.location.href = "index.html"; // Redireciona pro login se não estiver logado
+    }
+  </script>
+
   <style>
     :root {
       --verde-neon: #00ff88;
@@ -58,7 +67,8 @@
       gap: 16px;
     }
 
-    .menu li a {
+    .menu li a,
+    .menu li button {
       color: white;
       text-decoration: none;
       font-size: 17px;
@@ -67,10 +77,14 @@
       align-items: center;
       gap: 10px;
       border-radius: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
       transition: background 0.3s, color 0.3s;
     }
 
-    .menu li a:hover {
+    .menu li a:hover,
+    .menu li button:hover {
       background-color: rgba(255, 255, 255, 0.1);
       color: var(--verde-neon);
     }
@@ -143,7 +157,7 @@
       <li><a href="ia.html">🤖 IA Finora</a></li>
       <li><a href="gastos.html">🥧 Seus Gastos</a></li>
       <li><a href="meta-financeira.html">🎯 Meta Financeira</a></li>
-      <li><a href="index.html">🚪 Sair</a></li>
+      <li><button onclick="sair()">🚪 Sair</button></li>
     </ul>
   </aside>
 
@@ -154,15 +168,24 @@
   </main>
 
   <script>
+    // 👤 Personalização
     const nomeCompleto = localStorage.getItem("finora_nome") || "Usuário";
     document.getElementById("bemvindo").innerText = `👋 Olá, ${nomeCompleto}!`;
 
+    // 💰 Saldo
     const saldo = localStorage.getItem("saldoFinora");
     if (saldo !== null) {
       const saldoFormatado = parseFloat(saldo).toFixed(2);
       document.getElementById("infoSaldo").innerText = `💰 Seu saldo: R$ ${saldoFormatado}`;
     } else {
       document.getElementById("infoSaldo").innerText = "💸 Saldo ainda não cadastrado.";
+    }
+
+    // 🔓 Logout
+    function sair() {
+      localStorage.removeItem("finora_username");
+      localStorage.removeItem("finora_nome");
+      window.location.href = "index.html";
     }
   </script>
 </body>
