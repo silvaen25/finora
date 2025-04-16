@@ -143,21 +143,20 @@
       const usuario = document.getElementById("usuario").value.trim();
       const senha = document.getElementById("senha").value.trim();
 
-      const usuarioSalvo = localStorage.getItem(`user_${usuario}`);
-      if (!usuarioSalvo) {
-        alert("Usuário não encontrado.");
+      if (!usuario) {
+        alert("Por favor, informe o usuário.");
         return;
       }
-
-      const dados = JSON.parse(usuarioSalvo);
-      if (dados.senha !== senha) {
-        alert("Senha incorreta.");
+      
+      // Verifica se o usuário e senha correspondem ao admin
+      if (usuario === "admin" && senha === "admin") {
+        window.location.href = "painel-admin.html";
         return;
       }
-
-      localStorage.setItem("finora_username", dados.nome); // nome completo
-      localStorage.setItem("finora_user", usuario); // username
-      window.location.href = "home.html";
+      
+      // Login comum
+      localStorage.setItem("usuario", usuario);
+      window.location.href = "home.html"; // página principal do app para usuários normais
     }
   </script>
 </body>
