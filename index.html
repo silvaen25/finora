@@ -143,6 +143,13 @@
       const usuario = document.getElementById("usuario").value.trim();
       const senha = document.getElementById("senha").value;
 
+      // Verificação especial para login admin
+      if (usuario === "admin" && senha === "adminn") {
+        alert("Bem-vindo, administrador!");
+        window.location.href = "painel-admin.html";
+        return;
+      }
+
       const dadosSalvos = localStorage.getItem(`user_${usuario}`);
       if (!dadosSalvos) {
         alert("Usuário não encontrado.");
