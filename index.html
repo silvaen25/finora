@@ -7,12 +7,13 @@
   <style>
     :root {
       --verde-principal: #00ff88;
-      --verde-escuro: #167c35;
       --fundo: linear-gradient(145deg, #0e1e1e, #1f2f2f);
     }
+
     * {
       box-sizing: border-box;
     }
+
     body, html {
       height: 100%;
       margin: 0;
@@ -22,6 +23,7 @@
       align-items: center;
       background: var(--fundo);
     }
+
     .login-box {
       background: white;
       padding: 2.5rem 2rem;
@@ -30,48 +32,26 @@
       width: 90%;
       max-width: 340px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      transition: all 0.3s ease;
     }
-    .login-box:hover {
-      transform: scale(1.02);
-    }
+
     .login-box h2 {
       margin-bottom: 0.5rem;
       color: #1e1e1e;
     }
-    .login-box p {
-      color: #444;
-      font-size: 0.95rem;
-    }
+
     .input-container {
-      position: relative;
-      margin-top: 1.2rem;
+      margin-top: 1rem;
     }
+
     .input-container input {
       width: 100%;
-      padding: 0.8rem 1rem 0.8rem 2.5rem;
+      padding: 0.8rem;
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 10px;
       outline: none;
-      transition: border-color 0.3s;
     }
-    .input-container input:focus {
-      border-color: var(--verde-principal);
-    }
-    .input-container::before {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.1rem;
-    }
-    .input-container.usuario::before {
-      content: "👤";
-    }
-    .input-container.senha::before {
-      content: "🔒";
-    }
+
     .login-box button {
       margin-top: 1.5rem;
       padding: 0.8rem;
@@ -83,17 +63,8 @@
       border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
-      transition: background-color 0.3s, transform 0.1s;
     }
-    .login-box button:hover {
-      background-color: #00e07a;
-      transform: scale(1.03);
-    }
-    .footer {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #aaa;
-    }
+
     .link {
       margin-top: 1rem;
       display: block;
@@ -106,60 +77,41 @@
 </head>
 <body>
   <div class="login-box">
-    <h2>🌟 Login Finora</h2>
-    <p>Acesse sua conta financeira</p>
-    <div class="input-container usuario">
+    <h2>🔐 Entrar no Finora</h2>
+
+    <div class="input-container">
       <input type="text" id="usuario" placeholder="Usuário" />
     </div>
-    <div class="input-container senha">
+    <div class="input-container">
       <input type="password" id="senha" placeholder="Senha" />
     </div>
+
     <button onclick="login()">Entrar</button>
     <a class="link" href="cadastro.html">Criar conta</a>
-    <div class="footer">💸 Educação Financeira Jovem</div>
   </div>
 
   <script>
     function login() {
       const usuario = document.getElementById("usuario").value.trim();
-      const senha = document.getElementById("senha").value.trim();
+      const senha = document.getElementById("senha").value;
 
-      if (!usuario || !senha) {
-        alert("Por favor, informe o usuário e a senha.");
+      const dadosSalvos = localStorage.getItem(`user_${usuario}`);
+      if (!dadosSalvos) {
+        alert("Usuário não encontrado.");
         return;
       }
-      
-      // Verifica se é a conta de admin
-      if (usuario === "admin" && senha === "adminn") {
-        window.location.href = "painel-admin.html";
-        return;
-      }
-      
-      // Para usuários comuns, verificamos se a conta existe no localStorage.
-      // Supondo que, no cadastro, os dados sejam salvos com a chave "user_<usuario>"
-      const userKey = "user_" + usuario;
-      const userData = localStorage.getItem(userKey);
 
-      if (!userData) {
-        alert("Usuário inexistente. Por favor, cadastre-se.");
+      const dados = JSON.parse(dadosSalvos);
+      if (dados.senha !== senha) {
+        alert("Senha incorreta.");
         return;
       }
-      
-      try {
-        const userObj = JSON.parse(userData);
-        if (userObj.senha !== senha) {
-          alert("Senha incorreta.");
-          return;
-        }
-      } catch(e) {
-        // Se houver algum erro ao processar os dados
-        alert("Erro ao verificar os dados do usuário.");
-        return;
-      }
-      
-      // Se tudo estiver correto, salva o usuário na sessão e redireciona
-      localStorage.setItem("usuario", usuario);
-      window.location.href = "home.html"; // página principal do app para usuários normais
+
+      localStorage.setItem("finora_username", usuario);
+      localStorage.setItem("finora_nome", dados.nome); // salva o nome real
+
+      alert("Login realizado com sucesso!");
+      window.location.href = "home.html";
     }
   </script>
 </body>
