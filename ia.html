@@ -206,7 +206,7 @@
       userDiv.innerHTML = `<span class="user">Você:</span> ${userMessage}`;
       chat.appendChild(userDiv);
 
-      const botResponse = getFakeResponse(userMessage);
+      const botResponse = gerarRespostaInteligente(userMessage);
       const botDiv = document.createElement('div');
       botDiv.className = "message bot";
       botDiv.innerHTML = `<span class="bot">Finora:</span> ${botResponse}`;
@@ -216,18 +216,53 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
-    function getFakeResponse(input) {
-      const lower = input.toLowerCase();
-      if (lower.includes("guardar dinheiro")) {
-        return "Uma boa ideia é guardar pelo menos 10% de tudo o que você ganha. 💰";
-      } else if (lower.includes("investir")) {
-        return "Você pode começar com Tesouro Direto ou fundos de investimento. 📈";
-      } else if (lower.includes("oi") || lower.includes("olá")) {
-        return "Olá! Como posso te ajudar hoje com seu dinheiro? 🤗";
-      } else {
-        return "Legal! Ainda estou aprendendo, mas em breve saberei responder isso. 🚀";
+    function gerarRespostaInteligente(frase) {
+      const texto = frase.toLowerCase();
+
+      const respostas = [
+        {
+          palavras: ["guardar", "dinheiro", "poupar", "economizar"],
+          resposta: "Guardar dinheiro é essencial! Comece separando uma parte fixa da sua renda, como 10%, e evite gastos desnecessários. 📦💸"
+        },
+        {
+          palavras: ["investir", "investimento", "rendimento"],
+          resposta: "Investir é um ótimo passo! Comece com Tesouro Direto, CDBs ou até uma conta que renda mais que a poupança. 💹"
+        },
+        {
+          palavras: ["cartão", "crédito"],
+          resposta: "Use o cartão de crédito com cuidado! Evite parcelar muito e nunca pague só o mínimo da fatura. 💳⚠️"
+        },
+        {
+          palavras: ["dívida", "devendo", "negativado"],
+          resposta: "Para sair das dívidas, anote tudo que deve, tente renegociar e priorize os pagamentos com juros maiores. 📉📋"
+        },
+        {
+          palavras: ["mesada", "dinheiro dos pais"],
+          resposta: "Recebe mesada? Ótimo! Monte um plano simples: uma parte para gastar, outra para guardar e outra pra realizar um sonho. 💡💰"
+        },
+        {
+          palavras: ["orçamento", "planejar", "controle"],
+          resposta: "Organize seu orçamento com planilhas ou apps. Anote o que ganha e o que gasta. Isso muda tudo! 📊📅"
+        },
+        {
+          palavras: ["oi", "olá", "e aí", "bom dia", "boa tarde"],
+          resposta: "Olá! 👋 Como posso te ajudar com sua vida financeira hoje?"
+        },
+        {
+          palavras: ["pix", "transferência", "dinheiro instantâneo"],
+          resposta: "O Pix é ótimo, mas cuidado pra não gastar por impulso! Use com consciência. ⚡💸"
+        }
+      ];
+
+      for (const item of respostas) {
+        if (item.palavras.some(p => texto.includes(p))) {
+          return item.resposta;
+        }
       }
+
+      return "Legal! Ainda estou aprendendo 🧠, mas em breve saberei responder melhor sobre isso. Que tal perguntar algo sobre economia, dívidas ou como guardar dinheiro? 😉";
     }
   </script>
 </body>
 </html>
+
