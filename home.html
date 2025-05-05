@@ -4,110 +4,188 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Finora - Início</title>
+
+  <!-- 🔐 BLOQUEIO DE ACESSO -->
+  <script>
+    const usuarioLogado = localStorage.getItem("finora_username");
+    if (!usuarioLogado) {
+      window.location.href = "index.html";
+    }
+  </script>
+
   <style>
-    body {
+    :root {
+      --verde-neon: #00ff88;
+      --preto: #1e1e1e;
+      --cinza-claro: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom right, #1e1e2f, #2a2a40);
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0e1e1e, #1f2f2f);
       color: white;
-      text-align: center;
     }
 
     header {
-      padding: 20px;
-      background-color: #121220;
-      font-size: 1.5em;
+      background-color: var(--preto);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      padding: 30px;
+    .logo-container img {
+      max-width: 120px;
+      height: auto;
     }
 
-    .menu-button {
-      background-color: #292940;
+    .menu-toggle {
+      background: none;
       border: none;
-      border-radius: 20px;
-      padding: 20px;
       color: white;
-      font-size: 0.9em;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: none;
+      flex-direction: column;
+      background-color: var(--preto);
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .menu.show {
+      display: flex;
+    }
+
+    .menu ul {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      gap: 12px;
+      padding: 20px;
+    }
+
+    .menu li a,
+    .menu li button {
+      color: white;
       text-decoration: none;
-      transition: background 0.3s ease;
+      font-size: 17px;
+      padding: 10px;
+      border-radius: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
     }
 
-    .menu-button:hover {
-      background-color: #3d3d5c;
+    .menu li a:hover,
+    .menu li button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--verde-neon);
     }
 
-    .menu-button i {
-      font-size: 24px;
-      margin-bottom: 10px;
+    .conteudo {
+      padding: 40px 20px;
+      text-align: center;
     }
 
-    .logo {
-      margin-top: 30px;
-      opacity: 0.05;
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      max-width: 300px;
+    .conteudo h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: var(--verde-neon);
+    }
+
+    .conteudo img {
+      max-width: 160px;
+      margin-bottom: 25px;
+      animation: flutuar 2.5s ease-in-out infinite;
+    }
+
+    .saldo-info {
+      font-size: 18px;
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 12px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      max-width: 100%;
+    }
+
+    @keyframes flutuar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
   </style>
-
-  <!-- Ícones do Font Awesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <header>Bem-vindo ao Finora</header>
+  <header>
+    <a href="home.html" class="logo-container">
+      <img src="logooo.png" alt="Logo Finora">
+    </a>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
 
-  <div class="menu-grid">
-    <a href="saldo.html" class="menu-button">
-      <i class="fas fa-wallet"></i>
-      Saldo
-    </a>
-    <a href="historico.html" class="menu-button">
-      <i class="fas fa-history"></i>
-      Histórico
-    </a>
-    <a href="calculadora.html" class="menu-button">
-      <i class="fas fa-calculator"></i>
-      Calculadora
-    </a>
-    <a href="dicas.html" class="menu-button">
-      <i class="fas fa-lightbulb"></i>
-      Dicas
-    </a>
-    <a href="aulas.html" class="menu-button">
-      <i class="fas fa-chalkboard-teacher"></i>
-      Aulas
-    </a>
-    <a href="suporte.html" class="menu-button">
-      <i class="fas fa-headset"></i>
-      Suporte
-    </a>
-    <a href="meta.html" class="menu-button">
-      <i class="fas fa-bullseye"></i>
-      Metas
-    </a>
-    <a href="gastos.html" class="menu-button">
-      <i class="fas fa-chart-pie"></i>
-      Seus Gastos
-    </a>
-    <a href="ia.html" class="menu-button">
-      <i class="fas fa-robot"></i>
-      IA Finora
-    </a>
-  </div>
+  <nav class="menu" id="menuNav">
+    <ul>
+      <li><a href="home.html">🏡 Início</a></li>
+      <li><a href="dicas.html">💡 Dicas financeiras</a></li>
+      <li><a href="aulas.html">📘 Aulas & Conteúdo</a></li>
+      <li><a href="suporte.html">💬 Suporte</a></li>
+      <li><a href="calculadora.html">🧮 Calculadora</a></li>
+      <li><a href="saldo.html">💰 Meu Saldo</a></li>
+      <li><a href="historico.html">📈 Histórico</a></li>
+      <li><a href="ia.html">🤖 IA Finora</a></li>
+      <li><a href="gastos.html">🥧 Seus Gastos</a></li>
+      <li><a href="meta-financeira.html">🎯 Meta Financeira</a></li>
+      <li><button onclick="sair()">🚪 Sair</button></li>
+    </ul>
+  </nav>
 
-  <img src="logo.png" alt="Logo Finora" class="logo">
+  <main class="conteudo">
+    <h1 id="bemvindo">Bem-vindo!</h1>
+    <img src="https://cdn-icons-png.flaticon.com/512/1130/1130083.png" alt="Ícone Finanças">
+    <p class="saldo-info" id="infoSaldo">Carregando saldo...</p>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("menuNav").classList.toggle("show");
+    }
+
+    const nomeCompleto = localStorage.getItem("finora_nome") || "Usuário";
+    document.getElementById("bemvindo").innerText = `👋 Olá, ${nomeCompleto}!`;
+
+    const saldo = localStorage.getItem("saldoFinora");
+    if (saldo !== null) {
+      const saldoFormatado = parseFloat(saldo).toFixed(2);
+      document.getElementById("infoSaldo").innerText = `💰 Seu saldo: R$ ${saldoFormatado}`;
+    } else {
+      document.getElementById("infoSaldo").innerText = "💸 Saldo ainda não cadastrado.";
+    }
+
+    function sair() {
+      localStorage.removeItem("finora_username");
+      localStorage.removeItem("finora_nome");
+      window.location.href = "index.html";
+    }
+  </script>
 
 </body>
 </html>
